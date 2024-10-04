@@ -11,7 +11,7 @@ const Sidebar: React.FC = () => {
       <nav>
         <ul className="space-y-4">
           <li>
-            <Link href="/dashboard" className="flex items-center space-x-2 hover:bg-blue-800 p-2 rounded text-[30px] mt-[40%] ml-[10%]">
+            <Link href="dashboard/homepage" className="flex items-center space-x-2 hover:bg-blue-800 p-2 rounded text-[30px] mt-[40%] ml-[10%]">
               <MdHome size={40} />
               <span>Dashboard</span>
             </Link>
@@ -20,7 +20,7 @@ const Sidebar: React.FC = () => {
            
           </li>
           <li>
-            <Link href="/reports" className="flex items-center space-x-2 hover:bg-blue-800 p-2 rounded text-[30px] mt-[60%] ml-[10%]">
+            <Link href="dashboard/reports" className="flex items-center space-x-2 hover:bg-blue-800 p-2 rounded text-[30px] mt-[60%] ml-[10%]">
               <MdDescription size={40} />
               <span>Reports</span>
             </Link>
