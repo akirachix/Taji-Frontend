@@ -65,7 +65,7 @@ export default function SignUpForm() {
     <div className="flex flex-row h-screen bg-white ">
       <div className="bg-slate-900 w-1/2 flex items-center justify-center p-8">
         <img
-          src="images/logo.png"
+          src="images/image.png"
           alt=""
           width={600}
           height={600}
@@ -164,7 +164,7 @@ export default function SignUpForm() {
 
 
           <p className="mt-4 text-xl 2xl:text-xl xl:text-xl lg:text-md text-center">
-            Already have an account? <a href="#" className="text-blue-500 hover:underline">Login</a>
+            Already have an account? <a href="/login" className="text-blue-500 hover:underline">Login</a>
           </p>
         </div>
       </div>

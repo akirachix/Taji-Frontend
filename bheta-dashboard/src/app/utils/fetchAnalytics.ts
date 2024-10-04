@@ -1,4 +1,3 @@
-// utils/analytics.js
 
 export const fetchAnalyticsData = async () => {
     const response = await fetch('/api/');
