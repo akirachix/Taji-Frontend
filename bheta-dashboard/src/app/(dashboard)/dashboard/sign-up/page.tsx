@@ -148,8 +148,7 @@ export default function SignUpForm() {
                  ${
                   isSubmitting ? "opacity-40 cursor-not-allowed" : ""
                 }`}
-                disabled={isSubmitting}
-              >
+                disabled={isSubmitting}>
                 {isSubmitting ? "Creating account..." : "Signup"}
               </button>
 

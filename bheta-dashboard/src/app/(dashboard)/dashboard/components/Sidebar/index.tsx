@@ -1,31 +1,41 @@
+'use client';
 import React from 'react';
 import Link from 'next/link';
-import { MdHome, MdBarChart, MdDescription } from 'react-icons/md';
+import { usePathname } from 'next/navigation';
+import Image from 'next/image';
 
-const Sidebar: React.FC = () => {
+const Sidebar = () => {
+  const pathname = usePathname();
+  const navItems = [
+    { name: 'dashboard', icon: 'home.png', path: '/dashboard' },
+    { name: 'report', icon: 'reports.png', path: '/reports' },
+  ];
+
   return (
-    <div className=" text-white  flex flex-col bg-[#040530] w-80 z-10 h-screen p-5 sticky top-0">
-      <div className="mb-8">
-      <img src="/images/image.png" alt="Logo" width={200} height={180} />
+    <div className="bg-[#040530] w-64 h-screen sticky top-0 z-10 flex flex-col">
+      <div className="text-center mt-8 mb-20"> 
+        <img src="/images/bhetalogo.png" alt="Bheta Logo" className="mx-auto" /> 
       </div>
-      <nav>
-        <ul className="space-y-4">
-          <li>
-            <Link href="dashboard/homepage" className="flex items-center space-x-2 hover:bg-blue-800 p-2 rounded text-[30px] mt-[40%] ml-[10%]">
-              <MdHome size={40} />
-              <span>Dashboard</span>
-            </Link>
-          </li>
-          <li>
-           
-          </li>
-          <li>
-            <Link href="dashboard/reports" className="flex items-center space-x-2 hover:bg-blue-800 p-2 rounded text-[30px] mt-[60%] ml-[10%]">
-              <MdDescription size={40} />
-              <span>Reports</span>
-            </Link>
-          </li>
-        </ul>
+
+      <nav className="flex-grow flex flex-col justify-start space-y-8">
+        {navItems.map((item) => (
+          <Link href={item.path} key={item.name}>
+            <div
+              className={`flex items-center gap-4 text-white py-4 hover:bg-[#eeeae8] rounded-md px-6 transition ${
+                pathname === item.path ? 'bg-[#e02d2d]' : ''
+              }`}>
+              <Image
+                src={`/images/${item.icon}`}
+                alt={item.name}
+                width={28}
+                height={28}
+              />
+              <h2 className="text-lg font-medium capitalize">
+                {item.name}
+              </h2>
+            </div>
+          </Link>
+        ))}
       </nav>
     </div>
   );
