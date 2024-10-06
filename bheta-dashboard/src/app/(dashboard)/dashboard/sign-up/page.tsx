@@ -4,8 +4,10 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useState } from 'react';
 import * as yup from 'yup';
+import Link from 'next/link';
+import Image from 'next/image';
 import { postUser } from '@/app/(dashboard)/dashboard/utils/postregisteruser';
-
+import { FiEye, FiEyeOff } from 'react-icons/fi'; // Import eye icons
 
 interface UserData {
   first_name: string;
@@ -13,7 +15,6 @@ interface UserData {
   email: string;
   password: string;
 }
-
 
 const signupSchema = yup.object().shape({
   first_name: yup.string().required('First Name is required'),
@@ -25,13 +26,12 @@ const signupSchema = yup.object().shape({
     .min(6, 'Password must be at least 6 characters long'),
 });
 
-
 export default function SignUpForm() {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [showPassword, setShowPassword] = useState(false);
   const router = useRouter();
-   const {
+  const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
@@ -40,7 +40,6 @@ export default function SignUpForm() {
     resolver: yupResolver(signupSchema),
     mode: 'onBlur',
   });
-
 
   const onSubmit = async (data: UserData) => {
     try {
@@ -52,7 +51,7 @@ export default function SignUpForm() {
         setTimeout(() => {
           reset();
           setSuccessMessage(null);
-          router.push("/login");
+          router.push("/dashboard/login");
         }, 2000);
       }
     } catch (error) {
@@ -60,15 +59,14 @@ export default function SignUpForm() {
     }
   };
 
-
   return (
     <div className="flex flex-row h-screen bg-white ">
-      <div className="bg-slate-900 w-1/2 flex items-center justify-center p-8">
-        <img
-          src="images/image.png"
-          alt=""
-          width={600}
-          height={600}
+      <div className="bg-[#1B264F] w-1/2 flex items-center justify-center p-8">
+        <Image
+          src="/images/image.png"
+          alt="logo"
+          width={350}
+          height={180}
           className="max-w-full h-auto mt-30"
         />
       </div>
@@ -90,7 +88,7 @@ export default function SignUpForm() {
               />
               {errors.first_name && <p className="text-red-500">{errors.first_name.message}</p>}
             </div>
-        
+
             <div>
               <label htmlFor="lastName" className="block text-xl font-medium text-gray-700 ">
                 Last Name
@@ -105,7 +103,6 @@ export default function SignUpForm() {
               />
               {errors.last_name && <p className="text-red-500">{errors.last_name.message}</p>}
             </div>
-
 
             <div>
               <label htmlFor="email" className="block text-xl font-medium text-gray-700">
@@ -122,7 +119,6 @@ export default function SignUpForm() {
               {errors.email && <p className="text-red-500">{errors.email.message}</p>}
             </div>
 
-
             <div>
               <label htmlFor="password" className="block text-xl font-medium text-gray-700">
                 Password
@@ -136,15 +132,21 @@ export default function SignUpForm() {
                     errors.password ? 'border-red-500' : ''
                   }`}
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5"
+                >
+                  {showPassword ? <FiEyeOff /> : <FiEye />}
+                </button>
               </div>
               {errors.password && <p className="text-red-500">{errors.password.message}</p>}
             </div>
 
-
             <div>
               <button
                 type="submit"
-                className={`w-44 mt-2 ml-[33%] h-12 2xl:h-16 xl:h-16 lg:h-16 flex justify-center bg-slate-900 text-white py-6 font-bold rounded-[10px]
+                className={`bg-[#1B264F] hover:bg-blue-700 text-white font-bold py-4 px-20 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-200 ease-in-out transform hover:scale-105 ml-[28%] mt-[5%]
                  ${
                   isSubmitting ? "opacity-40 cursor-not-allowed" : ""
                 }`}
@@ -152,7 +154,6 @@ export default function SignUpForm() {
               >
                 {isSubmitting ? "Creating account..." : "Signup"}
               </button>
-
 
               {successMessage && (
                 <p className="mt-2 text-green-500 text-center text-sm ml-30">
@@ -162,9 +163,11 @@ export default function SignUpForm() {
             </div>
           </form>
 
-
           <p className="mt-4 text-xl 2xl:text-xl xl:text-xl lg:text-md text-center">
-            Already have an account? <a href="/login" className="text-blue-500 hover:underline">Login</a>
+            Already have an account? 
+            <Link href="/dashboard/login" className="text-[#1B264F] hover:text-[#1B264F]">
+              Login
+            </Link>
           </p>
         </div>
       </div>

@@ -32,14 +32,14 @@ const Login = () => {
     } else {
       setSuccessMessage('Logged in successfully!');
       setErrorMessage(null);
-      setTimeout(() => router.push("/home"), 1000);
+      setTimeout(() => router.push("/dashboard/dashboardpage"), 1000);
     }
   };
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
   return (
-    <div className="flex h-screen bg-[#1B264F]">
+    <div className="flex h-screen bg-slate-900">
       <div className="w-1/2 flex flex-col justify-center items-center p-12 bg-[#1B264F]">
         <Image src="/images/image.png" alt="Logo" width={350} height={180} />
        
@@ -96,7 +96,7 @@ const Login = () => {
           {successMessage && <p className="text-green-500 text-[20px] italic mt-5 ml-[30px]">{successMessage}</p>}
         </form>
         <p className="mt-4 text-black darker grotesque text-[18px]">
-          Don't have an account? <a href="/signup" className="text-[#1B264F] hover:text-[#1B264F]">Sign up</a>
+          Don't have an account? <a href="/dashboard/sign-up" className="text-[#1B264F] hover:text-[#1B264F]">Sign up</a>
         </p>
       </div>
     </div>
