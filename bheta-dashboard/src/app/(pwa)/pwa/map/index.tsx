@@ -282,20 +282,6 @@ const PharmacyHospitalFinder: React.FC = () => {
     instructions: string; 
   }
   
-  
-  interface Directions {
-    routes: {
-      legs: {
-        distance: {
-          text: string;
-        };
-        duration: {
-          text: string;
-        };
-        steps: Step[];
-      }[];
-    }[];
-  }
 
   const renderDirections = () => {
     if (!directions) return null;
