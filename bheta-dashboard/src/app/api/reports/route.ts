@@ -1,7 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
+
 const baseUrl = process.env.BASE_URL;
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   if (!baseUrl) {
     console.error('BASE_URL environment variable is not set.');
     return NextResponse.json(
@@ -9,6 +10,7 @@ export async function GET(request: NextRequest) {
       { status: 500 }
     );
   }
+
   try {
     const response = await fetch(`${baseUrl}/api/pharmacies`, {
       method: 'GET',
@@ -31,7 +33,7 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error('Error occurred:', (error as Error).message);
     return NextResponse.json(
-      { error: 'An error occurred. Please try again later.' + (error as Error).message },
+      { error: 'An error occurred. Please try again later. ' + (error as Error).message },
       { status: 500 }
     );
   }

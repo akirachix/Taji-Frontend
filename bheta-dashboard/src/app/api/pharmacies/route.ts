@@ -1,7 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
+
 const baseUrl = process.env.BASE_URL;  
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   if (!baseUrl) {
     console.error('BASE_URL environment variable is not set.');
     return NextResponse.json(

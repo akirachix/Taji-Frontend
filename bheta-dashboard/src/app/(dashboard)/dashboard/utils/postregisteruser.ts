@@ -1,4 +1,4 @@
-const url = '/api/user'
+const url = '/api/users'
 export const postUser = async (UserData: { 
   first_name: string;
   last_name: string;
