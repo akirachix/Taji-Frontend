@@ -118,28 +118,32 @@ const PharmacyHospitalFinder: React.FC = () => {
 
     window.google.maps.event.addListener(newMap, 'zoom_changed', () => {
       const currentZoom = newMap.getZoom();
-      const adjustedRadius = adjustRadiusToZoom(currentZoom);
+    
+    
+      const adjustedRadius = adjustRadiusToZoom(currentZoom ?? 0); 
       userCircle.setRadius(adjustedRadius);
     });
-
+    
     window.google.maps.event.addListener(newMap, 'idle', () => {
       userCircle.setCenter(center); 
     });
+    
 
     findNearbyPharmaciesAndHospitals(newMap, center);
   };
 
   const adjustRadiusToZoom = (zoomLevel: number) => {
-  
-    const radiusMapping = {
-      14: SEARCH_RADIUS, 
-      13: SEARCH_RADIUS * 1.5,
-      12: SEARCH_RADIUS * 2,
-      11: SEARCH_RADIUS * 2.5,
-      10: SEARCH_RADIUS * 3,
+    const radiusMapping: { [key: string]: number } = {
+      '14': SEARCH_RADIUS,
+      '13': SEARCH_RADIUS * 1.5,
+      '12': SEARCH_RADIUS * 2,
+      '11': SEARCH_RADIUS * 2.5,
+      '10': SEARCH_RADIUS * 3,
     };
-    return radiusMapping[zoomLevel] || SEARCH_RADIUS; 
+  
+    return radiusMapping[zoomLevel.toString()] || SEARCH_RADIUS;
   };
+  
 
   const findNearbyPharmaciesAndHospitals = (map: google.maps.Map, location: google.maps.LatLng | google.maps.LatLngLiteral) => {
     const service = new google.maps.places.PlacesService(map);
@@ -149,9 +153,9 @@ const PharmacyHospitalFinder: React.FC = () => {
       const request: google.maps.places.PlaceSearchRequest = {
         location: location,
         radius: SEARCH_RADIUS,
-        type: type as google.maps.places.PlaceType
+        type: type as string, 
       };
-
+    
       service.nearbySearch(request, (results, status) => {
         if (status === google.maps.places.PlacesServiceStatus.OK && results) {
           results.forEach(place => {
@@ -167,8 +171,10 @@ const PharmacyHospitalFinder: React.FC = () => {
           });
         }
       });
-    });
+    }); 
+
   };
+    
 
   const createMarker = (place: google.maps.places.PlaceResult, map: google.maps.Map, type: 'pharmacy' | 'hospital') => {
     if (!place.geometry || !place.geometry.location) return;
@@ -275,14 +281,14 @@ const PharmacyHospitalFinder: React.FC = () => {
 
   const renderDirections = () => {
     if (!directions) return null;
-
+  
     return (
       <div className="bg-white p-4 rounded shadow-lg max-h-96 overflow-y-auto">
         <h2 className="text-xl font-bold mb-2">Directions</h2>
-        <p className="mb-2">Total distance: {directions.legs[0].distance?.text}</p>
-        <p className="mb-4">Estimated time: {directions.legs[0].duration?.text}</p>
+        <p className="mb-2">Total distance: {directions.routes[0].legs[0].distance?.text}</p>
+        <p className="mb-4">Estimated time: {directions.routes[0].legs[0].duration?.text}</p>
         <ol className="list-decimal list-inside">
-          {directions.legs[0].steps.map((step, index) => (
+          {directions.routes[0].legs[0].steps.map((step: any, index: number) => (
             <li key={index} className="mb-2" dangerouslySetInnerHTML={{ __html: step.instructions }}></li>
           ))}
         </ol>
@@ -294,6 +300,7 @@ const PharmacyHospitalFinder: React.FC = () => {
       </div>
     );
   };
+  
 
   return (
     <div style={{ position: 'relative', width: '100%', height: '100vh' }}>
