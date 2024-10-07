@@ -278,6 +278,24 @@ const PharmacyHospitalFinder: React.FC = () => {
     setLoading(false);
     initMap({ lat: -1.286389, lng: 36.817223 }); 
   };
+  interface Step {
+    instructions: string; 
+  }
+  
+  
+  interface Directions {
+    routes: {
+      legs: {
+        distance: {
+          text: string;
+        };
+        duration: {
+          text: string;
+        };
+        steps: Step[];
+      }[];
+    }[];
+  }
 
   const renderDirections = () => {
     if (!directions) return null;
@@ -288,7 +306,7 @@ const PharmacyHospitalFinder: React.FC = () => {
         <p className="mb-2">Total distance: {directions.routes[0].legs[0].distance?.text}</p>
         <p className="mb-4">Estimated time: {directions.routes[0].legs[0].duration?.text}</p>
         <ol className="list-decimal list-inside">
-          {directions.routes[0].legs[0].steps.map((step: any, index: number) => (
+          {directions.routes[0].legs[0].steps.map((step: Step, index: number) => (
             <li key={index} className="mb-2" dangerouslySetInnerHTML={{ __html: step.instructions }}></li>
           ))}
         </ol>
