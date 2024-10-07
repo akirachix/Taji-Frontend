@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Alert, AlertDescription, AlertTitle } from '../component/ui/alert';
 import { Loader } from 'lucide-react';
+import Image from 'next/image';
 
 declare global {
   interface Window {
@@ -356,21 +357,41 @@ const PharmacyHospitalFinder: React.FC = () => {
         </div>
       )}
 
-      <div className="absolute bottom-1 left-1 bg-white p-4 rounded-lg shadow-md text-lg sm:w-80 md:w-96 lg:w-1/4">
-        <h3 className="font-bold mb-4 text-xl">Key</h3>
-        <div className="flex items-center mb-2">
-          <img src="http://maps.google.com/mapfiles/ms/icons/blue-dot.png" alt="Your Location" className="mr-4 w-6 h-6 sm:w-8 sm:h-8" />
-          <span className="text-blue-600 font-semibold">Your Location</span>
-        </div>
-        <div className="flex items-center mb-2">
-          <img src="http://maps.google.com/mapfiles/ms/icons/green-dot.png" alt="Pharmacy" className="mr-4 w-6 h-6 sm:w-8 sm:h-8" />
-          <span className="text-green-600 font-semibold">Pharmacy</span>
-        </div>
-        <div className="flex items-center">
-          <img src="http://maps.google.com/mapfiles/ms/icons/red-dot.png" alt="Hospital" className="mr-4 w-6 h-6 sm:w-8 sm:h-8" />
-          <span className="text-red-600 font-semibold">Hospital</span>
-        </div>
-      </div>
+<div className="absolute bottom-1 left-1 bg-white p-4 rounded-lg shadow-md text-lg sm:w-80 md:w-96 lg:w-1/4">
+  <h3 className="font-bold mb-4 text-xl">Key</h3>
+  <div className="flex items-center mb-2">
+    <Image
+      src="http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+      alt="Your Location"
+      width={24} 
+      height={24}
+      className="mr-4 w-6 h-6 sm:w-8 sm:h-8"
+    />
+    <span className="text-blue-600 font-semibold">Your Location</span>
+  </div>
+  <div className="flex items-center mb-2">
+    <Image
+      src="http://maps.google.com/mapfiles/ms/icons/green-dot.png"
+      alt="Pharmacy"
+      width={24} 
+      height={24}
+      className="mr-4 w-6 h-6 sm:w-8 sm:h-8"
+    />
+    <span className="text-green-600 font-semibold">Pharmacy</span>
+  </div>
+  <div className="flex items-center">
+    <Image
+      src="http://maps.google.com/mapfiles/ms/icons/red-dot.png"
+      alt="Hospital"
+      width={24} 
+      height={24}
+      className="mr-4 w-6 h-6 sm:w-8 sm:h-8"
+    />
+    <span className="text-red-600 font-semibold">Hospital</span>
+  </div>
+</div>
+
+
     </div>
   );
 };
