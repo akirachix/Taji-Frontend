@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { MdHome, MdBarChart, MdDescription } from 'react-icons/md';
+import { MdHome, MdDescription } from 'react-icons/md';
 
 const Sidebar: React.FC = () => {
   return (

@@ -1,7 +1,7 @@
 "use client";
 import { useState } from 'react';
 import Image from 'next/image';
-import { FaBars, FaTimes, FaHome, FaInfoCircle, FaMapMarkerAlt } from 'react-icons/fa'; 
+import { FaTimes, FaHome, FaInfoCircle, FaMapMarkerAlt } from 'react-icons/fa'; 
 import Link from 'next/link';
 
 export default function Navbar() {

@@ -160,6 +160,12 @@ export default function SignUpForm() {
                   {successMessage}
                 </p>
               )}
+
+              {errorMessage && (
+                <p className="mt-2 text-red-500 text-center text-sm ml-30">
+                  {errorMessage}
+                </p>
+              )}
             </div>
           </form>
 
