@@ -18,7 +18,7 @@ const PharmacyHospitalFinder: React.FC = () => {
   const [userLocation, setUserLocation] = useState<google.maps.LatLng | null>(null);
   const [showLocationPrompt, setShowLocationPrompt] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [mapLoaded, setMapLoaded] = useState(false);
+  const [, setMapLoaded] = useState(false);
   const [directionsRenderer, setDirectionsRenderer] = useState<google.maps.DirectionsRenderer | null>(null);
   const [showDirectionsPanel, setShowDirectionsPanel] = useState(false);
   const [directions, setDirections] = useState<google.maps.DirectionsResult | null>(null);
