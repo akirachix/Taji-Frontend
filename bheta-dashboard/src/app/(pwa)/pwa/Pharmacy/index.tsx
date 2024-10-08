@@ -32,7 +32,6 @@ const PharmacyReportForm: React.FC = () => {
   const [suggestions, setSuggestions] = useState<Pharmacy[]>([]);
   const { register, handleSubmit, formState: { errors }, reset, setValue, watch } = useForm<IFormInput>();
 
-  const pharmacyNameRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -79,7 +78,7 @@ const PharmacyReportForm: React.FC = () => {
     }
   };
 
-  const onSubmit: SubmitHandler<IFormInput> = (data: any) => {
+  const onSubmit: SubmitHandler<IFormInput> = (data: IFormInput) => {
     console.log(data);
     setIsSubmitted(true);
   };
@@ -120,7 +119,7 @@ const PharmacyReportForm: React.FC = () => {
       <div className="flex flex-col items-center justify-center py-56">
         <div className="bg-gray-200 p-6 rounded-lg shadow-lg text-center">
           <p>You have successfully reported {watch('pharmacyName')}</p>
-          <p>pharmacy. Thank you for your help. Let's keep our health safe.</p>
+          <p>pharmacy. Thank you for your help. Let us keep our health safe.</p>
           <button
             onClick={() => {
               setIsSubmitted(false);
