@@ -1,10 +1,10 @@
-// import SignUp from "./(dashboard)/dashboard/sign-up/page";
-import PharmacyHospitalFinder from "./(pwa)/pwa/map";
+import PharmacyReportForm from "./(pwa)/pwa/Pharmacy";
+
 
 export default function Home() {
   return (
     <div>
-      <PharmacyHospitalFinder/>
+      <PharmacyReportForm/>
     </div>
   );
 }
