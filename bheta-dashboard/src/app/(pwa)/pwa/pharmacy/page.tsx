@@ -138,7 +138,7 @@ const PharmacyReportForm: React.FC = () => {
     
     <>
   <Navbar />
-  <div id="pharmacy" className="overflow-auto">
+  <div className="overflow-auto">
     <div className="flex flex-col lg:flex-row ml-[2%] lg:ml-[15%]">
       <div className="mt-[5%] mx-auto lg:mx-0">
         <Image
@@ -222,8 +222,6 @@ const PharmacyReportForm: React.FC = () => {
   </div>
 </>
 
-
-  
   );
 };
 
