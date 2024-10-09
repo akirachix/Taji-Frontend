@@ -2,7 +2,7 @@
 import React, { useState, useRef } from 'react';
 import Link from 'next/link'; 
 import Image from 'next/image';
-import Navbar from '../../Navbar';
+import Navbar from '../Navbar';
 
 const ImageUpload: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
