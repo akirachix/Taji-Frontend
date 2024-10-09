@@ -1,3 +1,4 @@
+
 'use client';
 import React, { useState, useRef } from 'react';
 import Link from 'next/link';
@@ -38,18 +39,15 @@ const ImageUpload: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const { data } = await uploadImage(imageFile!);
-      if (!data) {
-        setResponseMessage('Error: Failed to upload image.');
+      const { data, error } = await uploadImage(imageFile!);
+      if (error) {
+      console.log(error)
+        setResponseMessage(`Error: ${error}`);
       } else {
         setResponseMessage(`Response: ${JSON.stringify(data)}`);
       }
-    } catch (error: unknown) { 
-      if (error instanceof Error) {
-        console.log(error.message);
-      } else {
-        console.log('An unknown error occurred');
-      }
+    } catch (error) {
+        console.log(error);
       setResponseMessage('Something went wrong while uploading the image.');
     } finally {
       setIsLoading(false);
@@ -71,16 +69,23 @@ const ImageUpload: React.FC = () => {
         <h2 className="text-2xl font-bold text-center">Upload Response</h2>
         <p className="text-center">{responseMessage}</p>
         <div className="flex justify-around mt-6">
-          <Link href="/pwa/share">
-            <button className="px-4 py-2 bg-blue-500 text-white rounded-lg" onClick={handleShare}>
-              Share
-            </button>
+
+        <Link href="/pwa/share">
+          <button
+            className="px-4 py-2 bg-blue-500 text-white rounded-lg"
+            onClick={handleShare}
+          >
+            Share
+          </button>
           </Link>
           <Link href="/pwa/pharmacy">
-            <button className="px-4 py-2 bg-red-500 text-white rounded-lg" onClick={handleReport}>
+            <button
+              className="px-4 py-2 bg-red-500 text-white rounded-lg"
+              onClick={handleReport}>
               Report
             </button>
           </Link>
+
         </div>
         <button
           className="w-full px-4 py-2 bg-gray-300 text-black rounded-lg"
@@ -117,7 +122,10 @@ const ImageUpload: React.FC = () => {
                         className="w-48 h-48 bg-white border-2 border-gray-300 rounded-lg p-4 flex flex-col items-center justify-center space-y-2 hover:bg-gray-50 transition-colors"
                         onClick={handleUploadClick}>
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-24 w-24 text-navy-blue" viewBox="0 0 20 20" fill="currentColor">
-                          <path fillRule="evenodd" d="M4 5a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-1.586a1 1 0 01-.707-.293l-1.121-1.121A2 2 0 0011.172 3H8.828a2 2 0 00-1.414.586L6.293 4.707A1 1 0 015.586 5H4zm6 9a3 3 0 100-6 3 3 0 000 6z" clipRule="evenodd"/>
+                          <path
+                            fillRule="evenodd"
+                            d="M4 5a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V7a2 2 0 00-2-2h-1.586a1 1 0 01-.707-.293l-1.121-1.121A2 2 0 0011.172 3H8.828a2 2 0 00-1.414.586L6.293 4.707A1 1 0 015.586 5H4zm6 9a3 3 0 100-6 3 3 0 000 6z"
+                            clipRule="evenodd"/>
                         </svg>
                         <span className="text-lg font-medium text-navy-blue">Take a picture</span>
                       </button>
@@ -126,7 +134,11 @@ const ImageUpload: React.FC = () => {
                         className="w-48 h-48 bg-white border-2 border-gray-300 rounded-lg p-4 flex flex-col items-center justify-center space-y-2 hover:bg-gray-50 transition-colors"
                         onClick={handleUploadClick}>
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-24 w-24 text-navy-blue" viewBox="0 0 20 20" fill="currentColor">
-                          <path fillRule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clipRule="evenodd" />
+                          <path
+                            fillRule="evenodd"
+                            d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
+                            clipRule="evenodd"
+                          />
                         </svg>
                         <span className="text-lg font-medium text-navy-blue">Upload from gallery</span>
                       </button>
@@ -148,7 +160,7 @@ const ImageUpload: React.FC = () => {
                   <div className="bg-white p-10 w-3/4 md:w-1/2 lg:w-1/3 rounded-lg shadow-lg space-y-6">
                     <h2 className="text-2xl font-bold text-center">Selected Image</h2>
                     <Image src={selectedImage} alt="Selected" className="w-64 h-64 object-cover rounded-lg mx-auto" width={0} height={0} />
-                    <div className="flex justify-around mt-6">
+                    <div className="flex justify-around mt-6 ">
                       <button
                         className="px-4 py-2 bg-white text-black rounded-lg"
                         onClick={() => {
