@@ -6,7 +6,6 @@ interface UploadResponse {
   url?: string;
 }
 
-
 export const uploadImage = async (imageFile: File): Promise<{ data: UploadResponse | null; error: string | null }> => {
   const formData = new FormData();
   formData.append('image_file', imageFile);
@@ -28,7 +27,6 @@ export const uploadImage = async (imageFile: File): Promise<{ data: UploadRespon
     return { data: null, error: 'Something went wrong while uploading the image.' };
   }
 };
-
 
 export async function POST(request: Request) {
   const { imageFile } = await request.json();
