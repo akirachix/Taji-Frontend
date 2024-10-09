@@ -2,6 +2,7 @@
 import React, { useState, useRef } from 'react';
 import Link from 'next/link'; 
 import Navbar from '../Navbar';
+import Image from 'next/image';
 
 const ImageUpload: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -10,7 +11,6 @@ const ImageUpload: React.FC = () => {
   const [responseMessage, setResponseMessage] = useState<string>('');
   const [showResponsePage, setShowResponsePage] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
-
 
 
   const handleUploadClick = () => {
@@ -51,6 +51,7 @@ const ImageUpload: React.FC = () => {
         setResponseMessage(`Error: ${data.error || 'Failed to upload the image'}`);
       }
     } catch (error) {
+      console.log(error)
       setResponseMessage('Something went wrong while uploading the image.');
     } finally {
       setIsLoading(false);
@@ -77,7 +78,6 @@ const ImageUpload: React.FC = () => {
         <p className="text-center">{responseMessage}</p>
         <div className="flex justify-around mt-6">
 
-
           <Link href="/pwa/share">
           <button
             className="px-4 py-2 bg-blue-500 text-white rounded-lg"
@@ -86,6 +86,7 @@ const ImageUpload: React.FC = () => {
           </button>
           </Link>
 
+
           <Link href="/pwa/pharmacy">
           <button
             className="px-4 py-2 bg-red-500 text-white rounded-lg"
@@ -93,13 +94,11 @@ const ImageUpload: React.FC = () => {
             Report
           </button>
           </Link>
-          
         </div>
 
         <button
           className="w-full px-4 py-2 bg-gray-300 text-black rounded-lg"
-          onClick={() => setShowResponsePage(false)}
-        >
+          onClick={() => setShowResponsePage(false)}>
           Back to Upload
         </button>
       </div>
@@ -169,7 +168,7 @@ const ImageUpload: React.FC = () => {
               <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
                 <div className="bg-white p-10 w-3/4 md:w-1/2 lg:w-1/3 rounded-lg shadow-lg space-y-6">
                   <h2 className="text-2xl font-bold text-center">Selected Image</h2>
-                  <img src={selectedImage} alt="Selected" className="w-64 h-64 object-cover rounded-lg mx-auto" />
+                  <Image src={selectedImage} alt="Selected" className="w-64 h-64 object-cover rounded-lg mx-auto" width={0} height={0} />
                   <div className="flex justify-around mt-6 ">
                     <button
                       className="px-4 py-2 bg-white text-black rounded-lg"
@@ -177,8 +176,7 @@ const ImageUpload: React.FC = () => {
                         setSelectedImage(null); 
                         setImageFile(null); 
                         setResponseMessage('');
-                      }}
-                    >
+                      }}>
                       Go Back
                     </button>
 
