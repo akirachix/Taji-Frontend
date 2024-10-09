@@ -41,15 +41,20 @@ const ImageUpload: React.FC = () => {
     try {
       const { data, error } = await uploadImage(imageFile!);
       if (error) {
+    
         setResponseMessage(`Error: ${error}`);
       } else {
         setResponseMessage(`Response: ${JSON.stringify(data)}`);
       }
-    } catch (error) {
-        console.log(error);
-        
-      setResponseMessage('Something went wrong while uploading the image.');
-    } finally {
+    } catch (error: unknown) {
+        if (error instanceof Error) {
+          console.log(error.message);
+        } else {
+          console.log('An unknown error occurred');
+        }
+        setResponseMessage('Something went wrong while uploading the image.');
+      }
+    finally {
       setIsLoading(false);
       setShowResponsePage(true);
     }
