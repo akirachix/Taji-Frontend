@@ -1,42 +1,40 @@
+
 import { NextResponse } from 'next/server';
 
-const API_URL = 'https://bheta-solution-4f9d1da807f3.herokuapp.com/api/image-upload/';
+const baseUrl = process.env.BASE_URL;  
 
-interface UploadResponse {
-  url?: string;
-}
-
-export const uploadImage = async (imageFile: File): Promise<{ data: UploadResponse | null; error: string | null }> => {
-  const formData = new FormData();
-  formData.append('image_file', imageFile);
+export async function GET() {
+  if (!baseUrl) {
+    console.error('BASE_URL environment variable is not set.');
+    return NextResponse.json(
+      { error: 'BASE_URL environment variable is not set.' },
+      { status: 500 }
+    );
+  }
 
   try {
-    const response = await fetch(API_URL, {
+    const response = await fetch(`${baseUrl}/api/imageupload`, {
       method: 'POST',
-      body: formData,
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
-
-    const data = await response.json();
-    if (response.ok) {
-      return { data, error: null };
-    } else {
-      return { data: null, error: data.error || 'Failed to upload the image' };
+    const textResponse = await response.text();
+    console.log('Backend response:', textResponse, 'Status:', response.status);
+    
+    if (!response.ok) {
+      return NextResponse.json(
+        { error: textResponse || 'Failed to fetch .' },
+        { status: response.status }
+      );
     }
+    const result = JSON.parse(textResponse);
+    return NextResponse.json(result, { status: 200 });
   } catch (error) {
-    console.error('Error while uploading the image:', error);
-    return { data: null, error: 'Something went wrong while uploading the image.' };
+    console.error('Error occurred:', (error as Error).message);
+    return NextResponse.json(
+      { error: 'An error occurred. Please try again later. ' + (error as Error).message },
+      { status: 500 }
+    );
   }
-};
-
-export async function POST(request: Request) {
-  const formData = await request.formData();
-  const imageFile = formData.get('image_file') as File;
-
-  const { data, error } = await uploadImage(imageFile);
-
-  if (error) {
-    return NextResponse.json({ data: null, error }, { status: 400 });
-  }
-
-  return NextResponse.json({ data, error: null });
 }

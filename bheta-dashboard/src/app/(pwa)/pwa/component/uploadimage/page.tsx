@@ -167,7 +167,7 @@ const ImageUpload: React.FC = () => {
               <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
                 <div className="bg-white p-10 w-3/4 md:w-1/2 lg:w-1/3 rounded-lg shadow-lg space-y-6">
                   <h2 className="text-2xl font-bold text-center">Selected Image</h2>
-                  <Image src={selectedImage} alt="Selected" className="w-64 h-64 object-cover rounded-lg mx-auto" />
+                  <Image src={selectedImage} alt="Selected" className="w-64 h-64 object-cover rounded-lg mx-auto" width={0} height={0} />
                   <div className="flex justify-around mt-6 ">
                     <button
                       className="px-4 py-2 bg-white text-black rounded-lg"
