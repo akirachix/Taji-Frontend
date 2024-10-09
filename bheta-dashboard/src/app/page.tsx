@@ -1,10 +1,9 @@
-import PharmacyReportForm from "./(pwa)/pwa/Pharmacy";
-
+import ImageUpload from "./(pwa)/pwa/uploadimage/page";
 
 export default function Home() {
   return (
     <div>
-      <PharmacyReportForm/>
+     <ImageUpload />
     </div>
   );
 }
