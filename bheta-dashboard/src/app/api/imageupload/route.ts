@@ -29,9 +29,8 @@ export const uploadImage = async (imageFile: File): Promise<{ data: UploadRespon
 };
 
 export async function POST(request: Request) {
-  
-  const formData = await request.formData(); 
-  const imageFile = formData.get('image_file') as File; 
+  const formData = await request.formData();
+  const imageFile = formData.get('image_file') as File;
 
   const { data, error } = await uploadImage(imageFile);
 
