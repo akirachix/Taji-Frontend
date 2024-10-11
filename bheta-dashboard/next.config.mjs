@@ -1,15 +1,15 @@
+import withPWA from 'next-pwa';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    images: {
-        remotePatterns: [
-            {
-                protocol: 'http', 
-                hostname: 'maps.google.com',
-                port: '',
-                pathname: '/mapfiles/ms/icons/**', 
-            },
-        ],
-    },
+  images: {
+    domains: ['maps.google.com'],
+  },
 };
 
-export default nextConfig;
+const withPWAConfig = withPWA({
+  dest: 'public',
+  disable: process.env.NODE_ENV === 'development',
+});
+
+export default withPWAConfig(nextConfig);
