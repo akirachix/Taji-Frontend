@@ -1,9 +1,10 @@
-import ImageUpload from "./(pwa)/pwa/uploadimage/page";
+import CheckDrugStatus from "./(pwa)/pwa/Homepage/page";
+
 
 export default function Home() {
   return (
     <div>
-     <ImageUpload />
+     <CheckDrugStatus/>
     </div>
   );
 }

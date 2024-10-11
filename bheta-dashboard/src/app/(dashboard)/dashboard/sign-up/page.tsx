@@ -7,7 +7,7 @@ import * as yup from 'yup';
 import Link from 'next/link';
 import Image from 'next/image';
 import { postUser } from '@/app/(dashboard)/dashboard/utils/postregisteruser';
-import { FiEye, FiEyeOff } from 'react-icons/fi'; // Import eye icons
+import { FiEye, FiEyeOff } from 'react-icons/fi';
 
 interface UserData {
   first_name: string;

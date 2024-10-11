@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Alert, AlertDescription, AlertTitle } from '../component/ui/alert';
 import { Loader } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 declare global {
   interface Window {
@@ -250,12 +251,6 @@ const PharmacyHospitalFinder: React.FC = () => {
     );
   };
 
-  const handleDeclineLocation = () => {
-    setShowLocationPrompt(false);
-    setLoading(false);
-    initMap({ lat: -1.286389, lng: 36.817223 });
-  };
-
   interface Step {
     instructions: string;
   }
@@ -297,11 +292,12 @@ const PharmacyHospitalFinder: React.FC = () => {
             <AlertDescription>
               Bheta wants to use your location to find nearby pharmacies and hospitals
               <div style={{ marginTop: '0.5rem', display: 'flex', justifyContent: 'flex-end', gap: '0.5rem' }}>
+                 <Link href='/pwa/Homepage'>
                 <button
-                  onClick={handleDeclineLocation}
                   className="px-4 py-2 bg-gray-200 rounded">
                   Decline
                 </button>
+                </Link>
                 <button
                   onClick={handleAcceptLocation}
                   className="px-4 py-2 bg-blue-500 text-white rounded">
