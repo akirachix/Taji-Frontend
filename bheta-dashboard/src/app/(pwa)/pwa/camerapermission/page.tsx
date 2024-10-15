@@ -4,26 +4,39 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 const Camerapermission = () => {
-  const videoRef = useRef<HTMLVideoElement | null>(null); 
-  const canvasRef = useRef<HTMLCanvasElement | null>(null); 
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
-  const [capturedImage, setCapturedImage] = useState<string | null>(null); 
+  const [capturedImage, setCapturedImage] = useState<string | null>(null);
   const [cameraStarted, setCameraStarted] = useState(false);
   const [stream, setStream] = useState<MediaStream | null>(null);
   const [responseMessage, setResponseMessage] = useState<string>('');
   const [showResponsePage, setShowResponsePage] = useState<boolean>(false);
+  const [isSmallScreen, setIsSmallScreen] = useState<boolean>(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsSmallScreen(window.innerWidth < 768);
+    };
+
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
 
   const startCamera = async () => {
     try {
       const newStream = await navigator.mediaDevices.getUserMedia({ 
         video: { 
           width: { ideal: 380 }, 
-          height: { ideal: 220 }
+          height: { ideal: 220 },
+          facingMode: isSmallScreen ? 'environment' : 'user'
         } 
       });
       setStream(newStream);
       if (videoRef.current) {
-        videoRef.current.srcObject = newStream; 
+        videoRef.current.srcObject = newStream;
         setCameraStarted(true);
       }
     } catch (err) {
@@ -39,12 +52,12 @@ const Camerapermission = () => {
     await new Promise(resolve => setTimeout(resolve, 100));
 
     if (canvasRef.current && videoRef.current) {
-      const context = canvasRef.current.getContext('2d'); 
+      const context = canvasRef.current.getContext('2d');
       if (context) {
         canvasRef.current.width = videoRef.current.videoWidth;
         canvasRef.current.height = videoRef.current.videoHeight;
         context.drawImage(videoRef.current, 0, 0, canvasRef.current.width, canvasRef.current.height);
-        const imageDataUrl = canvasRef.current.toDataURL('image/jpeg', 1.0); 
+        const imageDataUrl = canvasRef.current.toDataURL('image/jpeg', 1.0);
         setCapturedImage(imageDataUrl);
       }
     }
@@ -72,7 +85,6 @@ const Camerapermission = () => {
       const data = await apiResponse.json();
 
       if (apiResponse.ok) {
-        
         const responseValue = Object.values(data)[0];
         setResponseMessage(typeof responseValue === 'string' ? responseValue : JSON.stringify(responseValue));
       } else {
@@ -89,7 +101,7 @@ const Camerapermission = () => {
 
   const handleBack = () => {
     setCapturedImage(null);
-    setCameraStarted(false); 
+    setCameraStarted(false);
     setResponseMessage('');
     setShowResponsePage(false);
   };
@@ -110,7 +122,7 @@ const Camerapermission = () => {
         stream.getTracks().forEach(track => track.stop());
       }
     };
-  }, []);
+  }, [isSmallScreen]); 
 
   const ResponsePage: React.FC = () => (
     <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
