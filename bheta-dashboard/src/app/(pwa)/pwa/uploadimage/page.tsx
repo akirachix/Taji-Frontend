@@ -127,8 +127,7 @@ const ImageUpload: React.FC = () => {
                 {!selectedImage ? (
                   <>
                     <button
-                      className="w-48 h-48 bg-white border-2 border-gray-300 rounded-lg p-4 flex flex-col items-center justify-center space-y-2 hover:bg-gray-50 transition-colors"
-                      onClick={handleUploadClick}>
+                      className="w-48 h-48 bg-white border-2 border-gray-300 rounded-lg p-4 flex flex-col items-center justify-center space-y-2 hover:bg-gray-50 transition-colors">
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-24 w-24 text-navy-blue" viewBox="0 0 20 20" fill="currentColor">
                         <path
                           fillRule="evenodd"
