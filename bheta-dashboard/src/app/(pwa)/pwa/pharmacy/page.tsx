@@ -117,7 +117,7 @@ const PharmacyReportForm: React.FC = () => {
   if (isSubmitted) {
     return (
       <div className="flex flex-col items-center justify-center py-56">
-        <div className="bg-gray-200 p-6 rounded-lg shadow-lg text-center">
+        <div className="bg-gray-200 p-6 rounded-lg shadow-lg text-center darker grotesque">
           <p>You have successfully reported {watch('pharmacyName')}</p>
           <p>pharmacy. Thank you for your help. Let us keep our health safe.</p>
           <button
@@ -155,7 +155,7 @@ const PharmacyReportForm: React.FC = () => {
           onSubmit={handleSubmit(onSubmit)}
           className="bg-gray-300 p-6 rounded-lg shadow-lg max-h-[70vh] lg:max-h-[65vh] overflow-y-auto pb-[80px]"
         >
-          <div className="mb-4 relative">
+          <div className="mb-4 relative darker grotesque ">
             <label className="block text-gray-700 mb-2">Input Pharmacy Name</label>
             <input
               type="text"
@@ -181,7 +181,7 @@ const PharmacyReportForm: React.FC = () => {
             )}
           </div>
           
-          <div className="mb-6">
+          <div className="mb-6 darker grotesque ">
             <label className="block text-gray-700 mb-3">County</label>
             <input
               type="text"

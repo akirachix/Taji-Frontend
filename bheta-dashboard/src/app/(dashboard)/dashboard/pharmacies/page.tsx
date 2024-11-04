@@ -15,7 +15,7 @@ const PharmacyReportChart = () => {
 
   const pharmacyReportMap = new Map();
 
-  pharmacies.forEach(pharmacy => {
+    pharmacies.forEach(pharmacy => {
     if (pharmacyReportMap.has(pharmacy.name)) {
       const currentCount = pharmacyReportMap.get(pharmacy.name);
       pharmacyReportMap.set(pharmacy.name, currentCount + 1);
@@ -23,6 +23,7 @@ const PharmacyReportChart = () => {
       pharmacyReportMap.set(pharmacy.name, pharmacy.reported);
     }
   });
+  
 
   const pharmacyNames = Array.from(pharmacyReportMap.keys());
   const reportedCounts = Array.from(pharmacyReportMap.values());
