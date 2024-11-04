@@ -1,7 +1,8 @@
 "use client";
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { CameraIcon, RefreshCwIcon, X } from 'lucide-react';
 
 const Camerapermission = () => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -12,44 +13,55 @@ const Camerapermission = () => {
   const [stream, setStream] = useState<MediaStream | null>(null);
   const [responseMessage, setResponseMessage] = useState<string>('');
   const [showResponsePage, setShowResponsePage] = useState<boolean>(false);
-  const [isSmallScreen, setIsSmallScreen] = useState<boolean>(false);
+  const [isBackCamera, setIsBackCamera] = useState<boolean>(true);
 
-  useEffect(() => {
-    const checkScreenSize = () => {
-      setIsSmallScreen(window.innerWidth < 768);
-    };
-
-    checkScreenSize();
-    window.addEventListener('resize', checkScreenSize);
-
-    return () => window.removeEventListener('resize', checkScreenSize);
-  }, []);
-
-  const startCamera = async () => {
+  const startCamera = useCallback(async () => {
     try {
+      if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+      }
+      
       const newStream = await navigator.mediaDevices.getUserMedia({ 
         video: { 
           width: { ideal: 380 }, 
           height: { ideal: 220 },
-          facingMode: isSmallScreen ? 'environment' : 'user'
+          facingMode: isBackCamera ? 'environment' : 'user'
         } 
       });
-      setStream(newStream);
+      
       if (videoRef.current) {
         videoRef.current.srcObject = newStream;
+        setStream(newStream);
         setCameraStarted(true);
       }
     } catch (err) {
       console.error("Error accessing camera:", err);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isBackCamera]);
+
+  useEffect(() => {
+    startCamera();
+    return () => {
+      if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [startCamera]);
+
+  const toggleCamera = () => {
+    if (stream) {
+      stream.getTracks().forEach(track => track.stop());
+    }
+    setIsBackCamera(!isBackCamera);
   };
 
   const captureImage = async () => {
     if (!cameraStarted) {
       await startCamera();
+      await new Promise(resolve => setTimeout(resolve, 500));
     }
-
-    await new Promise(resolve => setTimeout(resolve, 100));
 
     if (canvasRef.current && videoRef.current) {
       const context = canvasRef.current.getContext('2d');
@@ -84,11 +96,11 @@ const Camerapermission = () => {
 
       const data = await apiResponse.json();
 
-      if (apiResponse.ok) {
+      if (apiResponse.ok) { 
         const responseValue = Object.values(data)[0];
         setResponseMessage(typeof responseValue === 'string' ? responseValue : JSON.stringify(responseValue));
       } else {
-        setResponseMessage('Failed to upload the image');
+        setResponseMessage(data.error || 'Failed to upload the image');
       }
     } catch (error) {
       console.error('Error uploading image:', error);
@@ -99,13 +111,6 @@ const Camerapermission = () => {
     }
   };
 
-  const handleBack = () => {
-    setCapturedImage(null);
-    setCameraStarted(false);
-    setResponseMessage('');
-    setShowResponsePage(false);
-  };
-
   const handleShare = () => {
     console.log('Sharing response');
   };
@@ -114,29 +119,25 @@ const Camerapermission = () => {
     console.log('Report response');
   };
 
-  useEffect(() => {
-    startCamera();
-    
-    return () => {
-      if (stream) {
-        stream.getTracks().forEach(track => track.stop());
-      }
-    };
-  }, [isSmallScreen]); 
-
   const ResponsePage: React.FC = () => (
     <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
       <div className="bg-white p-10 w-3/4 md:w-1/2 lg:w-1/3 rounded-lg shadow-lg space-y-6">
-        <h2 className="text-2xl font-bold text-center">Upload Response</h2>
+        <button 
+          onClick={() => setShowResponsePage(false)}
+          className="absolute top-4 right-4 p-1 hover:bg-gray-100 rounded-full transition-colors"
+        >
+          <X className="w-6 h-6 text-gray-500" />
+        </button>
+        <h2 className="text-2xl font-bold text-center">Drug Status</h2>
         <p className="text-center">{responseMessage}</p>
         <div className="flex justify-around mt-6">
-        <Link href="/pwa/share">
-          <button
-            className="px-4 py-2 bg-blue-500 text-white rounded-lg"
-            onClick={handleShare}
-          >
-            Share
-          </button>
+          <Link href="/pwa/share">
+            <button
+              className="px-4 py-2 bg-blue-500 text-white rounded-lg"
+              onClick={handleShare}
+            >
+              Share
+            </button>
           </Link>
           <Link href="/pwa/pharmacy">
             <button
@@ -147,12 +148,6 @@ const Camerapermission = () => {
             </button>
           </Link>
         </div>
-        <button
-          className="w-full px-4 py-2 bg-gray-300 text-black rounded-lg"
-          onClick={handleBack}
-        >
-          Back to Upload
-        </button>
       </div>
     </div>
   );
@@ -172,14 +167,15 @@ const Camerapermission = () => {
             <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
               <div className="bg-white p-10 w-3/4 md:w-1/2 lg:w-2/3 rounded-lg shadow-lg space-y-6">
                 <h2 className="text-2xl font-bold text-center">Captured Image</h2>
-                <Image src={capturedImage} alt="Captured" className="w-64 h-64 object-cover rounded-lg mx-auto" width={0} height={0} />
+                <Image src={capturedImage} alt="Captured" className="w-64 h-64 object-cover rounded-lg mx-auto" width={256} height={256} />
                 <div className="flex justify-around mt-6">
-                  <button
-                    className="px-4 py-2 bg-white text-black rounded-lg"
-                    onClick={handleBack}
-                  >
-                    Go Back
-                  </button>
+                  <Link href="/pwa/takepicture">
+                    <button
+                      className="px-4 py-2 bg-white text-black rounded-lg"
+                    >
+                      Go Back
+                    </button>
+                  </Link>
                   <button
                     className="px-4 py-2 text-white rounded-lg"
                     style={{ backgroundColor: '#1B264F' }}
@@ -193,12 +189,20 @@ const Camerapermission = () => {
           ) : (
             <>
               <video ref={videoRef} autoPlay playsInline className="w-full h-64 object-cover mb-4 rounded-lg" />
+              <div className="absolute top-4 right-4">
+                <button 
+                  onClick={toggleCamera}
+                  className="p-2 bg-white rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                >
+                  <RefreshCwIcon className="w-6 h-6 text-gray-800" />
+                </button>
+              </div>
               <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
                 <button 
                   onClick={captureImage}
                   className="w-16 h-16 bg-white border-4 border-white rounded-full flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                 >
-                  <div className="w-12 h-12 bg-black rounded-full"></div>
+                  <CameraIcon className="w-8 h-8 text-gray-800" />
                 </button>
               </div>
             </>
@@ -206,10 +210,9 @@ const Camerapermission = () => {
           <canvas ref={canvasRef} style={{ display: 'none' }} width="1240" height="980" />
         </div>
       </main>
-
       {showResponsePage && <ResponsePage />}
     </div>
   );
-};
+}
 
 export default Camerapermission;

@@ -1,61 +1,77 @@
 "use client";
 import React from 'react';
 import Image from 'next/image';
-import { useState } from 'react';
 import Link from 'next/link';
 import Navbar from '../Navbar';
 
 const Landing = () => {
-  const [] = useState(false); 
-  
   return (
     <>
-    <Navbar/>
-    <div className="flex flex-col mt-[5%]">
-      <main className="flex-grow overflow-y-auto pt-16 pb-20 flex items-center justify-center bg-white text-lg md:text-xl p-4">
-        <div className="flex flex-col md:flex-row w-full max-w-5xl md:space-x-32">
-          <div className="w-full md:w-1/2 mb-8 md:mb-0">
-            <div className="bg-gray-200 rounded-lg overflow-hidden">
+      <Navbar />
+      <div className="container pt-24 sm:pt-16 pb-24 px-4 sm:px-6 lg:px-8">
+        <main>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start mt-[3%] lg:mt-[5%] lg:ml-[8%]">
+            <div className="flex justify-center  mt-[3%] lg:mt-[5%] order-1 md:order-1 ">
               <Image
-                src="/images/drug.png"
-                alt="Drug packaging example"
-                width={1600}
-                height={800}
-                className="w-full"
+                src="/images/pop.jpg"
+                alt="check"
+                width={400}
+                height={300}
+                className="w-full max-w-sm h-auto object-contain border-1 border-black rounded-xl"
+                priority
               />
             </div>
-          </div>
-          
-          <div className="w-full md:w-1/2 flex flex-col justify-between">
-            <div className='w-full mb-4'>
-              <p className="text-base md:text-lg lg:text-2xl ">
-                Please take a <span className="font-bold">clear</span> and well-lit picture of the drug 
-                packaging where the <span className="font-bold">batch number</span> is printed.
-              </p>
-              <p className="text-base md:text-lg lg:text-2xl">
-                Make sure the entire batch number is <span className="font-bold">fully visible</span> 
-                and in focus, avoiding any glare or obstructions that 
-                could obscure the text.
-              </p>
-            </div>
             
-            <div className="flex flex-col md:flex-row gap-4 md:gap-40 mb-4 md:mb-0">
-                <Link href='/pwa/uploadimage'>
-              <button className="w-full md:w-auto px-8 py-3 border-black ring-offset-1 ring-black shadow-black bg-transparent border-2 text-gray-700 rounded">
-                Back
-              </button>
-              </Link>
+            <div className="flex flex-col space-y-8 order-2 md:order-2">
+              <div className="space-y-6">
+              <h3 className="font-semibold text-[20px] sm:text-[24px] md:text-[30px] mb-2 sm:mb-4 text-center  sm:whitespace-nowrap mt-[5%] darker grotesque ">
+    Located a Batch Number on Your Medication
+    </h3>
+                <ol className="space-y-4">
+                  <li className="flex gap-2">
+                    <span className="text-xl md:text-2xl darker grotesque ">1.</span>
+                    <span className="text-xl md:text-2xl darker grotesque ">Usually printed in black ink.</span>
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="text-xl md:text-2xl darker grotesque ">2.</span>
+                    <span className="text-xl md:text-2xl darker grotesque">May be preceded by Batch No., Lot, or LOT NO</span>
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="text-xl md:text-2xl darker grotesque ">3.</span>
+                    <span className="text-xl md:text-2xl darker grotesque ">Often Near the expiry date.</span>
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="text-xl md:text-2xl darker grotesque ">4.</span>
+                    <span className="text-xl md:text-2xl darker grotesque ">The batch number may look like this B12345 or LOT2023A3</span>
+                  </li>
+                  <li className="flex gap-2">
+                    <span className="text-xl md:text-2xl darker grotesque ">5.</span>
+                    <span className="text-xl md:text-2xl darker grotesque ">It is found on the sides of the package, bottom or near barcode</span>
+                  </li>
+                </ol>
+              </div>
               
-              <Link href="/pwa/camera">
-                <button className="w-full md:w-auto px-6 py-3 bg-slate-900 text-white rounded transition-colors">
-                  Take a picture
-                </button>
-              </Link>
+              <div className="flex gap-6 sm:gap-24 w-full">
+                <Link href='/pwa/landing' className="w-full sm:w-auto">
+                  <button
+                    className="w-full flex items-center justify-center px-2 sm:px-10 py-4 sm:py-4 border-2 border-black text-black text-[16px] sm:text-[18px] rounded-[8px] sm:rounded-[12px] focus:outline-none focus:ring-2 focus:ring-offset-2 darker grotesque "
+                    style={{ backgroundColor: '#FFFFFF' }}>
+                    Back
+                  </button>
+                </Link>
+                <Link href='/pwa/camera' className="w-full sm:w-auto">
+                  <button
+                    className="w-full flex items-center justify-center px-2 sm:px-10 py-4 sm:py-4 text-white text-[16px] sm:text-[18px] rounded-[8px] sm:rounded-[12px] focus:outline-none focus:ring-2 focus:ring-offset-2 darker grotesque "
+                    style={{ backgroundColor: '#1B264F' }}>
+                    Take Picture
+                  </button>
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
-      </main>
-    </div>
+
+        </main>
+      </div>
     </>
   );
 };
