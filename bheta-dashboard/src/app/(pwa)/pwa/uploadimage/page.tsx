@@ -138,7 +138,7 @@ const ImageUpload: React.FC = () => {
                   </li>
                   <li className="flex gap-2">
                     <span className="text-xl md:text-2xl darker grotesque ">2.</span>
-                    <span className="text-xl md:text-2xl darker grotesque ">May be preceded by 'Batch No.', 'Lot', or 'LOT NO'</span>
+                    <span className="text-xl md:text-2xl darker grotesque ">May be preceded by 'Batch No., Lot, or LOT NO</span>
                   </li>
                   <li className="flex gap-2">
                     <span className="text-xl md:text-2xl darker grotesque ">3.</span>
@@ -146,7 +146,7 @@ const ImageUpload: React.FC = () => {
                   </li>
                   <li className="flex gap-2">
                     <span className="text-xl md:text-2xl darker grotesque">4.</span>
-                    <span className="text-xl md:text-2xl darker grotesque">The batch number may look like this 'B12345' or 'LOT2023A3'</span>
+                    <span className="text-xl md:text-2xl darker grotesque">The batch number may look like this B12345 or LOT2023A3</span>
                   </li>
                   <li className="flex gap-2">
                     <span className="text-xl md:text-2xl darker grotesque">5.</span>

@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { Camera } from 'lucide-react';
 import Navbar from '../Navbar';
