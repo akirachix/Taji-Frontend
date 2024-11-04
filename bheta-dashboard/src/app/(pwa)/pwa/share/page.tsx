@@ -3,13 +3,8 @@ import React from 'react';
 import { X } from 'lucide-react';
 import Link from 'next/link';
 
-interface ShareButtonsProps {
-  responseMessage: string;
-  onClose: () => void;
-}
-
-const ShareButtons: React.FC<ShareButtonsProps> = ({ responseMessage, onClose }) => {
-  const message = `Drug Status: ${responseMessage}`;
+const SharePage = () => {
+  const message = `Drug Status`
 
   const shareToWhatsApp = () => {
     const shareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
@@ -24,7 +19,7 @@ const ShareButtons: React.FC<ShareButtonsProps> = ({ responseMessage, onClose })
 
   return (
     <div className="fixed top-4 left-1/2 transform -translate-x-1/2 border border-black bg-white rounded-xl shadow-md py-4 sm:py-8 px-6 sm:px-12 flex flex-col items-center justify-center sm:justify-start gap-4 mt-[5%] sm:mt-[10%] w-[90%] sm:w-auto">
-      <p className="text-center font-semibold mb-4 darker grotesque">Share your drug status via</p>
+      <p className="text-center font-semibold mb-4 darker grotesque">Share Your Drug Status Via</p>
       <div className="flex flex-row gap-14 sm:gap-12 lg:gap-40">
         <div className="flex flex-col items-center">
           <button
@@ -70,17 +65,16 @@ const ShareButtons: React.FC<ShareButtonsProps> = ({ responseMessage, onClose })
           <span className="mt-2 text-sm darker grotesque">Facebook</span>
         </div>
       </div>
-     <Link href="/pwa/landing">
-      <button
-        onClick={onClose}
-        className="absolute top-1 right-1 text-gray-400 hover:text-gray-600 transition-colors"
-        aria-label="Close"
-      >
-        <X className="w-4 h-4" />
-      </button>
+      <Link href="/pwa/landing">
+        <button
+          className="absolute top-1 right-1 text-gray-400 hover:text-gray-600 transition-colors"
+          aria-label="Close"
+        >
+          <X className="w-4 h-4" />
+        </button>
       </Link>
     </div>
   );
 };
 
-export default ShareButtons;
+export default SharePage;
