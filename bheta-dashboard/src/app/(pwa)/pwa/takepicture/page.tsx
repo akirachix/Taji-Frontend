@@ -24,9 +24,8 @@ const Landing = () => {
             
             <div className="flex flex-col space-y-8 order-2 md:order-2">
               <div className="space-y-6">
-              <h3 className="font-semibold text-[20px] sm:text-[24px] md:text-[30px] mb-2 sm:mb-4 text-center  sm:whitespace-nowrap mt-[5%] darker grotesque ">
-    Located a Batch Number on Your Medication
-    </h3>
+              <h3 className="font-semibold text-[20px] sm:text-[24px] md:text-[30px] mb-2 sm:mb-4 text-center  sm:whitespace-nowrap mt-[5%] darker grotesque mr-[10%]">
+              Located a Batch Number on Your Medication</h3>
                 <ol className="space-y-4">
                   <li className="flex gap-2">
                     <span className="text-xl md:text-2xl darker grotesque ">1.</span>

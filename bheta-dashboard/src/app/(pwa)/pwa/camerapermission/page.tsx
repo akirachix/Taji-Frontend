@@ -3,6 +3,7 @@ import React, { useRef, useEffect, useState, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { CameraIcon, RefreshCwIcon, X } from 'lucide-react';
+import Navbar from '../Navbar';
 
 const Camerapermission = () => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -37,7 +38,7 @@ const Camerapermission = () => {
     } catch (err) {
       console.error("Error accessing camera:", err);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+   
   }, [isBackCamera]);
 
   useEffect(() => {
@@ -47,7 +48,7 @@ const Camerapermission = () => {
         stream.getTracks().forEach(track => track.stop());
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+   
   }, [startCamera]);
 
   const toggleCamera = () => {
@@ -153,6 +154,8 @@ const Camerapermission = () => {
   );
 
   return (
+    <>
+    <Navbar/>
     <div id='permission' className="min-h-screen bg-gray-100 flex flex-col">
       <main className="flex-grow flex flex-col items-center justify-center px-4 py-6">
         <div className="w-full max-w-3xl relative">
@@ -188,7 +191,7 @@ const Camerapermission = () => {
             </div>
           ) : (
             <>
-              <video ref={videoRef} autoPlay playsInline className="w-full h-64 object-cover mb-4 rounded-lg" />
+              <video ref={videoRef} autoPlay playsInline className="w-full object-cover mb-4 rounded-lg" />
               <div className="absolute top-4 right-4">
                 <button 
                   onClick={toggleCamera}
@@ -197,14 +200,14 @@ const Camerapermission = () => {
                   <RefreshCwIcon className="w-6 h-6 text-gray-800" />
                 </button>
               </div>
-              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2">
-                <button 
-                  onClick={captureImage}
-                  className="w-16 h-16 bg-white border-4 border-white rounded-full flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                >
-                  <CameraIcon className="w-8 h-8 text-gray-800" />
-                </button>
-              </div>
+              <div className="flex justify-center">
+                  <button 
+                    onClick={captureImage}
+                    className="w-16 h-16 bg-black border-4 border-white rounded-full flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                  >
+                    <CameraIcon className="w-8 h-8 text-white" />
+                  </button>
+                </div>
             </>
           )}
           <canvas ref={canvasRef} style={{ display: 'none' }} width="1240" height="980" />
@@ -212,6 +215,7 @@ const Camerapermission = () => {
       </main>
       {showResponsePage && <ResponsePage />}
     </div>
+    </>
   );
 }
 
