@@ -33,12 +33,16 @@ const PharmacyFinder: React.FC = () => {
    setShowLocationPrompt(true);
    loadGoogleMapsScript();
 
+
+   if (typeof window !== "undefined") {
+    loadGoogleMapsScript();
+
    navigator.serviceWorker.getRegistrations().then(registrations => {
     for (const registration of registrations) {
       registration.unregister();
     }
   });
-  
+}
 
    return () => {
      const script = document.querySelector('script[src*="maps.googleapis.com"]');
@@ -49,11 +53,11 @@ const PharmacyFinder: React.FC = () => {
  }, []);
 
  const loadGoogleMapsScript = () => {
-   if (window.google && window.google.maps) {
-     setMapLoaded(true);
-     setLoading(false);
-     return;
-   }
+  if (typeof window !== "undefined" && window.google && window.google.maps) {
+    setMapLoaded(true);
+    setLoading(false);
+    return;
+  }
 
    const existingScript = document.querySelector('script[src*="maps.googleapis.com"]');
    if (existingScript) {
