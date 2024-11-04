@@ -17,7 +17,6 @@ const Camerapermission = () => {
 
   const startCamera = useCallback(async () => {
     try {
-     
       if (stream) {
         stream.getTracks().forEach(track => track.stop());
       }
@@ -38,8 +37,9 @@ const Camerapermission = () => {
     } catch (err) {
       console.error("Error accessing camera:", err);
     }
-  }, [isBackCamera]); 
-  
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isBackCamera]);
+
   useEffect(() => {
     startCamera();
     return () => {
@@ -47,7 +47,8 @@ const Camerapermission = () => {
         stream.getTracks().forEach(track => track.stop());
       }
     };
-  }, [startCamera]); 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [startCamera]);
 
   const toggleCamera = () => {
     if (stream) {
@@ -59,7 +60,6 @@ const Camerapermission = () => {
   const captureImage = async () => {
     if (!cameraStarted) {
       await startCamera();
-     
       await new Promise(resolve => setTimeout(resolve, 500));
     }
 
@@ -210,10 +210,9 @@ const Camerapermission = () => {
           <canvas ref={canvasRef} style={{ display: 'none' }} width="1240" height="980" />
         </div>
       </main>
-
       {showResponsePage && <ResponsePage />}
     </div>
   );
-};
+}
 
 export default Camerapermission;
