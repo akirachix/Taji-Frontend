@@ -1,6 +1,5 @@
 "use client";
-import React, { useRef, useEffect, useState } from 'react';
-import Link from 'next/link';
+import React, { useRef, useEffect, useState, useCallback } from 'react';import Link from 'next/link';
 import Image from 'next/image';
 import { CameraIcon, RefreshCwIcon, X } from 'lucide-react';
 
@@ -15,7 +14,7 @@ const Camerapermission = () => {
   const [showResponsePage, setShowResponsePage] = useState<boolean>(false);
   const [isBackCamera, setIsBackCamera] = useState<boolean>(true);
 
-  const startCamera = async () => {
+  const startCamera = useCallback(async () => {
     try {
       if (stream) {
         stream.getTracks().forEach(track => track.stop());
@@ -35,7 +34,16 @@ const Camerapermission = () => {
     } catch (err) {
       console.error("Error accessing camera:", err);
     }
-  };
+  }, [stream, isBackCamera]);
+  
+  useEffect(() => {
+    startCamera();
+    return () => {
+      if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+      }
+    };
+  }, [startCamera, stream, isBackCamera]);
 
   const toggleCamera = () => {
     setIsBackCamera(!isBackCamera);
