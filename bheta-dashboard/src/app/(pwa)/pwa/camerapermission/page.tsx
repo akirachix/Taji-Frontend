@@ -1,5 +1,6 @@
 "use client";
-import React, { useRef, useEffect, useState, useCallback } from 'react';import Link from 'next/link';
+import React, { useRef, useEffect, useState, useCallback } from 'react';
+import Link from 'next/link';
 import Image from 'next/image';
 import { CameraIcon, RefreshCwIcon, X } from 'lucide-react';
 
@@ -16,9 +17,11 @@ const Camerapermission = () => {
 
   const startCamera = useCallback(async () => {
     try {
+     
       if (stream) {
         stream.getTracks().forEach(track => track.stop());
       }
+      
       const newStream = await navigator.mediaDevices.getUserMedia({ 
         video: { 
           width: { ideal: 380 }, 
@@ -26,15 +29,16 @@ const Camerapermission = () => {
           facingMode: isBackCamera ? 'environment' : 'user'
         } 
       });
-      setStream(newStream);
+      
       if (videoRef.current) {
         videoRef.current.srcObject = newStream;
+        setStream(newStream);
         setCameraStarted(true);
       }
     } catch (err) {
       console.error("Error accessing camera:", err);
     }
-  }, [stream, isBackCamera]);
+  }, [isBackCamera]); 
   
   useEffect(() => {
     startCamera();
@@ -43,27 +47,21 @@ const Camerapermission = () => {
         stream.getTracks().forEach(track => track.stop());
       }
     };
-  }, [startCamera, stream, isBackCamera]);
+  }, [startCamera]); 
 
   const toggleCamera = () => {
+    if (stream) {
+      stream.getTracks().forEach(track => track.stop());
+    }
     setIsBackCamera(!isBackCamera);
   };
-
-  useEffect(() => {
-    startCamera();
-    return () => {
-      if (stream) {
-        stream.getTracks().forEach(track => track.stop());
-      }
-    };
-  }, [isBackCamera]);
 
   const captureImage = async () => {
     if (!cameraStarted) {
       await startCamera();
+     
+      await new Promise(resolve => setTimeout(resolve, 500));
     }
-
-    await new Promise(resolve => setTimeout(resolve, 100));
 
     if (canvasRef.current && videoRef.current) {
       const context = canvasRef.current.getContext('2d');
@@ -102,7 +100,6 @@ const Camerapermission = () => {
         const responseValue = Object.values(data)[0];
         setResponseMessage(typeof responseValue === 'string' ? responseValue : JSON.stringify(responseValue));
       } else {
-       
         setResponseMessage(data.error || 'Failed to upload the image');
       }
     } catch (error) {
@@ -113,7 +110,6 @@ const Camerapermission = () => {
       setShowResponsePage(true);
     }
   };
-
 
   const handleShare = () => {
     console.log('Sharing response');
@@ -126,7 +122,7 @@ const Camerapermission = () => {
   const ResponsePage: React.FC = () => (
     <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
       <div className="bg-white p-10 w-3/4 md:w-1/2 lg:w-1/3 rounded-lg shadow-lg space-y-6">
-      <button 
+        <button 
           onClick={() => setShowResponsePage(false)}
           className="absolute top-4 right-4 p-1 hover:bg-gray-100 rounded-full transition-colors"
         >
@@ -135,13 +131,13 @@ const Camerapermission = () => {
         <h2 className="text-2xl font-bold text-center">Drug Status</h2>
         <p className="text-center">{responseMessage}</p>
         <div className="flex justify-around mt-6">
-        <Link href="/pwa/share">
-          <button
-            className="px-4 py-2 bg-blue-500 text-white rounded-lg"
-            onClick={handleShare}
-          >
-            Share
-          </button>
+          <Link href="/pwa/share">
+            <button
+              className="px-4 py-2 bg-blue-500 text-white rounded-lg"
+              onClick={handleShare}
+            >
+              Share
+            </button>
           </Link>
           <Link href="/pwa/pharmacy">
             <button
@@ -152,7 +148,6 @@ const Camerapermission = () => {
             </button>
           </Link>
         </div>
-      
       </div>
     </div>
   );
@@ -174,12 +169,12 @@ const Camerapermission = () => {
                 <h2 className="text-2xl font-bold text-center">Captured Image</h2>
                 <Image src={capturedImage} alt="Captured" className="w-64 h-64 object-cover rounded-lg mx-auto" width={256} height={256} />
                 <div className="flex justify-around mt-6">
-                 <Link href="/pwa/takepicture">
-                  <button
-                    className="px-4 py-2 bg-white text-black rounded-lg"
-                  >
-                    Go Back
-                  </button>
+                  <Link href="/pwa/takepicture">
+                    <button
+                      className="px-4 py-2 bg-white text-black rounded-lg"
+                    >
+                      Go Back
+                    </button>
                   </Link>
                   <button
                     className="px-4 py-2 text-white rounded-lg"
@@ -222,5 +217,3 @@ const Camerapermission = () => {
 };
 
 export default Camerapermission;
-
-
