@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import Navbar from '../Navbar';
 
@@ -83,11 +84,6 @@ const PharmacyReportForm: React.FC = () => {
     setIsSubmitted(true);
   };
 
-  const handleCancel = () => {
-    reset();
-    setSuggestions([]);
-  };
-
   const handlePharmacyNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setValue('pharmacyName', value);
@@ -120,15 +116,12 @@ const PharmacyReportForm: React.FC = () => {
         <div className="bg-gray-200 p-6 rounded-lg shadow-lg text-center darker grotesque">
           <p>You have successfully reported {watch('pharmacyName')}</p>
           <p>pharmacy. Thank you for your help. Let us keep our health safe.</p>
+          <Link href="/pwa/landing">
           <button
-            onClick={() => {
-              setIsSubmitted(false);
-              reset();
-            }}
-            className="mt-4 px-4 py-2 bg-blue-900 text-white rounded"
-          >
+            className="mt-4 px-4 py-2 bg-blue-900 text-white rounded">
             Close
           </button>
+          </Link>
         </div>
       </div>
     );
@@ -204,14 +197,13 @@ const PharmacyReportForm: React.FC = () => {
           </div>
           
           <div className="flex flex-row justify-between mt-[8%]">
+            <Link href="/pwa/landing/">
             <button
               type="button"
-              onClick={handleCancel}
-              className="px-4 py-2 bg-gray-500 text-white rounded"
-            >
+              className="px-4 py-2 bg-gray-500 text-white rounded">
               Cancel
             </button>
-            
+            </Link>
             <button type="submit" className="px-4 py-2 bg-blue-900 text-white rounded">
               Report Pharmacy
             </button>

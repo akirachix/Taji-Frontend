@@ -13,7 +13,7 @@ export default function Navbar() {
     '/pwa/landing',
     '/pwa/uploadimage',  
     '/pwa/takepicture',
-    '/pwa/share',
+    '/pwa/pharmacy',
     '/pwa/camera',
     '/pwa/camerapermission'
   ];

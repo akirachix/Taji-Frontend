@@ -4,6 +4,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { CameraIcon, RefreshCwIcon, X } from 'lucide-react';
 import Navbar from '../Navbar';
+import { useRouter } from 'next/navigation';
+
 
 const Camerapermission = () => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -15,6 +17,7 @@ const Camerapermission = () => {
   const [responseMessage, setResponseMessage] = useState<string>('');
   const [showResponsePage, setShowResponsePage] = useState<boolean>(false);
   const [isBackCamera, setIsBackCamera] = useState<boolean>(true);
+  const router = useRouter();
 
   const startCamera = useCallback(async () => {
     try {
@@ -112,37 +115,31 @@ const Camerapermission = () => {
     }
   };
 
-  const handleShare = () => {
-    console.log('Sharing response');
-  };
-
   const handleReport = () => {
     console.log('Report response');
   };
 
   const ResponsePage: React.FC = () => (
     <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
-      <div className="bg-white p-10 w-3/4 md:w-1/2 lg:w-1/3 rounded-lg shadow-lg space-y-6">
-        <button 
-          onClick={() => setShowResponsePage(false)}
-          className="absolute top-4 right-4 p-1 hover:bg-gray-100 rounded-full transition-colors"
-        >
-          <X className="w-6 h-6 text-gray-500" />
-        </button>
+
+<div className="relative bg-white p-10 w-3/4 md:w-1/2 lg:w-1/3 rounded-lg shadow-lg space-y-6">
+      <button 
+  onClick={() => {
+    setShowResponsePage(false);
+    router.push('/pwa/landing/');
+  }}
+  className="absolute top-4 right-4 p-1 hover:bg-gray-100 rounded-full transition-colors"
+>
+  <X className="w-6 h-6 text-gray-500" />
+</button>
+
         <h2 className="text-2xl font-bold text-center">Drug Status</h2>
         <p className="text-center">{responseMessage}</p>
         <div className="flex justify-around mt-6">
-          <Link href="/pwa/share">
-            <button
-              className="px-4 py-2 bg-blue-500 text-white rounded-lg"
-              onClick={handleShare}
-            >
-              Share
-            </button>
-          </Link>
           <Link href="/pwa/pharmacy">
             <button
-              className="px-4 py-2 bg-red-500 text-white rounded-lg"
+              className="px-6 py-2 text-white rounded-lg mt-[20%]"
+              style={{ backgroundColor: '#1B264F' }}
               onClick={handleReport}
             >
               Report
@@ -170,7 +167,7 @@ const Camerapermission = () => {
             <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
               <div className="bg-white p-10 w-3/4 md:w-1/2 lg:w-2/3 rounded-lg shadow-lg space-y-6">
                 <h2 className="text-2xl font-bold text-center">Captured Image</h2>
-                <Image src={capturedImage} alt="Captured" className="w-64 h-64 object-cover rounded-lg mx-auto" width={256} height={256} />
+                <Image src={capturedImage} alt="Captured" className="w-64 h-64 object-cover rounded-lg mx-auto" width={200} height={256} />
                 <div className="flex justify-around mt-6">
                   <Link href="/pwa/takepicture">
                     <button
@@ -191,7 +188,7 @@ const Camerapermission = () => {
             </div>
           ) : (
             <>
-              <video ref={videoRef} autoPlay playsInline className="w-full object-cover mb-4 rounded-lg" />
+              <video ref={videoRef} autoPlay playsInline className="w-full object-cover mb-12 rounded-lg" />
               <div className="absolute top-4 right-4">
                 <button 
                   onClick={toggleCamera}
@@ -210,7 +207,7 @@ const Camerapermission = () => {
                 </div>
             </>
           )}
-          <canvas ref={canvasRef} style={{ display: 'none' }} width="1240" height="980" />
+          <canvas ref={canvasRef} style={{ display: 'none' }} width="1000" height="980" />
         </div>
       </main>
       {showResponsePage && <ResponsePage />}

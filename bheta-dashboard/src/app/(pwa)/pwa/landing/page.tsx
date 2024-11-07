@@ -31,25 +31,24 @@ const VerifyMedication = () => {
                 Verify Your Medication
               </h2>
 
-              <p className="text-black mb-4 text-[17px] sm:text-[21px] md:text-[28px] lg:text-[30px] text-center lg:text-left leading-relaxed max-w-full darker grotesque ">
+              <p className="text-black mb-4 text-[19px] sm:text-[21px] md:text-[28px] lg:text-[30px] text-center lg:text-left leading-relaxed max-w-full darker grotesque ">
                 To verify your medication, select either way:
               </p>
 
               <div className="space-y-6 w-full max-w-full sm:max-w-xl lg:max-w-none">
                 <div>
-                  <p className="text-[20px] sm:text-[24px] lg:text-[28px] mb-2 font-semibold text-center lg:text-left darker grotesque ">Capture the batch number:</p>
-                  <p className="text-black text-[18px] sm:text-[22px] lg:text-[28px] text-center lg:text-left mb-2 darker grotesque">
+                  <p className="text-[22px] sm:text-[24px] lg:text-[28px] mb-2 font-semibold text-center lg:text-left darker grotesque ">Capture the batch number:</p>
+                  <p className="text-black text-[20px] sm:text-[22px] lg:text-[28px] text-center lg:text-left mb-2 darker grotesque">
                     Take a clear picture of a batch number on your medication package.
                   </p>
                 </div>
 
                 <div>
-                  <p className="text-[20px] sm:text-[24px] lg:text-[28px] font-semibold mb-2 text-center lg:text-left darker grotesque ">Upload From Gallery:</p>
-                  <p className="text-black text-[18px] sm:text-[24px] lg:text-[28px] text-center lg:text-left darker grotesque ">
+                  <p className="text-[22px] sm:text-[24px] lg:text-[28px] font-semibold mb-2 text-center lg:text-left darker grotesque ">Upload From Gallery:</p>
+                  <p className="text-black text-[20px] sm:text-[24px] lg:text-[28px] text-center lg:text-left darker grotesque ">
                     Select an image from your device that clearly shows a batch number.
                   </p>
                 </div>
-
                 {selectedFile && (
                   <div className="text-sm text-green-600">
                     Selected: {selectedFile.name}
@@ -59,7 +58,7 @@ const VerifyMedication = () => {
                 <div className="flex gap-6 sm:gap-12 w-full">
                   <Link href='/pwa/takepicture' className="w-full sm:w-auto">
                     <button
-                      className="w-full flex items-center justify-center px-4 sm:px-6 py-3 sm:py-4 text-white text-[12px] sm:text-[16px] rounded-[8px] sm:rounded-[12px] focus:outline-none focus:ring-2 focus:ring-offset-2 darker grotesque "
+                      className="w-full flex items-center justify-center px-4 sm:px-6 py-4 sm:py-4 text-white text-[14px] sm:text-[16px] rounded-[8px] sm:rounded-[12px] focus:outline-none focus:ring-2 focus:ring-offset-2 darker grotesque "
                       style={{ backgroundColor: '#1B264F' }}
                     >
                       <Camera className="mr-2 h-4 sm:h-5 w-4 sm:w-5" />
@@ -68,9 +67,8 @@ const VerifyMedication = () => {
                   </Link>
                   <Link href='/pwa/uploadimage' className="w-full sm:w-auto">
                     <button
-                      className="w-full flex items-center justify-center px-4 sm:px-6 py-3 sm:py-4 text-white text-[12px] sm:text-[16px] rounded-[8px] sm:rounded-[12px] focus:outline-none focus:ring-2 focus:ring-offset-2 darker grotesque "
-                      style={{ backgroundColor: '#1B264F' }}
-                    >
+                      className="w-full flex items-center justify-center px-4 sm:px-6 py-4 sm:py-4 text-white text-[14px] sm:text-[16px] rounded-[8px] sm:rounded-[12px] focus:outline-none focus:ring-2 focus:ring-offset-2 darker grotesque "
+                      style={{ backgroundColor: '#1B264F' }}>
                       Upload from Gallery
                     </button>
                   </Link>
