@@ -31,7 +31,7 @@ const PharmacyReportForm: React.FC = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [pharmacies, setPharmacies] = useState<Pharmacy[]>([]);
   const [suggestions, setSuggestions] = useState<Pharmacy[]>([]);
-  const { register, handleSubmit, formState: { errors }, reset, setValue, watch } = useForm<IFormInput>();
+  const { register, handleSubmit, formState: { errors }, setValue, watch } = useForm<IFormInput>();
 
 
   useEffect(() => {

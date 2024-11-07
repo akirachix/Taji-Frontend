@@ -6,7 +6,6 @@ import { CameraIcon, RefreshCwIcon, X } from 'lucide-react';
 import Navbar from '../Navbar';
 import { useRouter } from 'next/navigation';
 
-
 const Camerapermission = () => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -16,20 +15,16 @@ const Camerapermission = () => {
   const [stream, setStream] = useState<MediaStream | null>(null);
   const [responseMessage, setResponseMessage] = useState<string>('');
   const [showResponsePage, setShowResponsePage] = useState<boolean>(false);
-  const [isBackCamera, setIsBackCamera] = useState<boolean>(true);
+  const [isFrontCamera, setIsFrontCamera] = useState<boolean>(false);
   const router = useRouter();
 
   const startCamera = useCallback(async () => {
     try {
-      if (stream) {
-        stream.getTracks().forEach(track => track.stop());
-      }
-      
       const newStream = await navigator.mediaDevices.getUserMedia({ 
         video: { 
           width: { ideal: 380 }, 
           height: { ideal: 220 },
-          facingMode: isBackCamera ? 'environment' : 'user'
+          facingMode: isFrontCamera ? 'user' : 'environment'
         } 
       });
       
@@ -41,8 +36,7 @@ const Camerapermission = () => {
     } catch (err) {
       console.error("Error accessing camera:", err);
     }
-   
-  }, [isBackCamera]);
+  }, [isFrontCamera]);
 
   useEffect(() => {
     startCamera();
@@ -51,14 +45,10 @@ const Camerapermission = () => {
         stream.getTracks().forEach(track => track.stop());
       }
     };
-   
   }, [startCamera]);
 
   const toggleCamera = () => {
-    if (stream) {
-      stream.getTracks().forEach(track => track.stop());
-    }
-    setIsBackCamera(!isBackCamera);
+    setIsFrontCamera(!isFrontCamera);
   };
 
   const captureImage = async () => {
@@ -121,18 +111,16 @@ const Camerapermission = () => {
 
   const ResponsePage: React.FC = () => (
     <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
-
-<div className="relative bg-white p-10 w-3/4 md:w-1/2 lg:w-1/3 rounded-lg shadow-lg space-y-6">
-      <button 
-  onClick={() => {
-    setShowResponsePage(false);
-    router.push('/pwa/landing/');
-  }}
-  className="absolute top-4 right-4 p-1 hover:bg-gray-100 rounded-full transition-colors"
->
-  <X className="w-6 h-6 text-gray-500" />
-</button>
-
+      <div className="relative bg-white p-10 w-3/4 md:w-1/2 lg:w-1/3 rounded-lg shadow-lg space-y-6">
+        <button 
+          onClick={() => {
+            setShowResponsePage(false);
+            router.push('/pwa/landing/');
+          }}
+          className="absolute top-4 right-4 p-1 hover:bg-gray-100 rounded-full transition-colors"
+        >
+          <X className="w-6 h-6 text-gray-500" />
+        </button>
         <h2 className="text-2xl font-bold text-center">Drug Status</h2>
         <p className="text-center">{responseMessage}</p>
         <div className="flex justify-around mt-6">
@@ -198,13 +186,13 @@ const Camerapermission = () => {
                 </button>
               </div>
               <div className="flex justify-center">
-                  <button 
-                    onClick={captureImage}
-                    className="w-16 h-16 bg-black border-4 border-white rounded-full flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                  >
-                    <CameraIcon className="w-8 h-8 text-white" />
-                  </button>
-                </div>
+                <button 
+                  onClick={captureImage}
+                  className="w-16 h-16 bg-black border-4 border-white rounded-full flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                >
+                  <CameraIcon className="w-8 h-8 text-white" />
+                </button>
+              </div>
             </>
           )}
           <canvas ref={canvasRef} style={{ display: 'none' }} width="1000" height="980" />
