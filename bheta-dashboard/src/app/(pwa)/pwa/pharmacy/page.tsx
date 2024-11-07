@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import Navbar from '../Navbar';
 
@@ -30,7 +31,7 @@ const PharmacyReportForm: React.FC = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [pharmacies, setPharmacies] = useState<Pharmacy[]>([]);
   const [suggestions, setSuggestions] = useState<Pharmacy[]>([]);
-  const { register, handleSubmit, formState: { errors }, reset, setValue, watch } = useForm<IFormInput>();
+  const { register, handleSubmit, formState: { errors }, setValue, watch } = useForm<IFormInput>();
 
 
   useEffect(() => {
@@ -83,11 +84,6 @@ const PharmacyReportForm: React.FC = () => {
     setIsSubmitted(true);
   };
 
-  const handleCancel = () => {
-    reset();
-    setSuggestions([]);
-  };
-
   const handlePharmacyNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setValue('pharmacyName', value);
@@ -117,18 +113,15 @@ const PharmacyReportForm: React.FC = () => {
   if (isSubmitted) {
     return (
       <div className="flex flex-col items-center justify-center py-56">
-        <div className="bg-gray-200 p-6 rounded-lg shadow-lg text-center">
+        <div className="bg-gray-200 p-6 rounded-lg shadow-lg text-center darker grotesque">
           <p>You have successfully reported {watch('pharmacyName')}</p>
           <p>pharmacy. Thank you for your help. Let us keep our health safe.</p>
+          <Link href="/pwa/landing">
           <button
-            onClick={() => {
-              setIsSubmitted(false);
-              reset();
-            }}
-            className="mt-4 px-4 py-2 bg-blue-900 text-white rounded"
-          >
+            className="mt-4 px-4 py-2 bg-blue-900 text-white rounded">
             Close
           </button>
+          </Link>
         </div>
       </div>
     );
@@ -155,7 +148,7 @@ const PharmacyReportForm: React.FC = () => {
           onSubmit={handleSubmit(onSubmit)}
           className="bg-gray-300 p-6 rounded-lg shadow-lg max-h-[70vh] lg:max-h-[65vh] overflow-y-auto pb-[80px]"
         >
-          <div className="mb-4 relative">
+          <div className="mb-4 relative darker grotesque ">
             <label className="block text-gray-700 mb-2">Input Pharmacy Name</label>
             <input
               type="text"
@@ -181,7 +174,7 @@ const PharmacyReportForm: React.FC = () => {
             )}
           </div>
           
-          <div className="mb-6">
+          <div className="mb-6 darker grotesque ">
             <label className="block text-gray-700 mb-3">County</label>
             <input
               type="text"
@@ -204,14 +197,13 @@ const PharmacyReportForm: React.FC = () => {
           </div>
           
           <div className="flex flex-row justify-between mt-[8%]">
+            <Link href="/pwa/landing/">
             <button
               type="button"
-              onClick={handleCancel}
-              className="px-4 py-2 bg-gray-500 text-white rounded"
-            >
+              className="px-4 py-2 bg-gray-500 text-white rounded">
               Cancel
             </button>
-            
+            </Link>
             <button type="submit" className="px-4 py-2 bg-blue-900 text-white rounded">
               Report Pharmacy
             </button>

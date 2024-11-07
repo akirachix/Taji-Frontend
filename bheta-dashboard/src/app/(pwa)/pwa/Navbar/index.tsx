@@ -9,7 +9,24 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
-  const isActive = (path: string): boolean => pathname === path;
+  const checkDrugStatusPaths = [
+    '/pwa/landing',
+    '/pwa/uploadimage',  
+    '/pwa/takepicture',
+    '/pwa/pharmacy',
+    '/pwa/camera',
+    '/pwa/camerapermission'
+  ];
+
+  const isActive = (path: string): boolean => {
+     if (path === '/pwa/Homepage') {
+      return pathname === '/pwa/Homepage' || pathname === '/';
+    }
+    if (path === '/pwa/landing') {
+      return checkDrugStatusPaths.includes(pathname);
+    }
+    return pathname === path;
+  };
 
   const getLinkClass = (path: string): string => {
     return `text-${isActive(path) ? 'red-500' : 'black'}`;
@@ -24,34 +41,34 @@ export default function Navbar() {
         
         <div className="hidden md:flex space-x-24 font-bold text-black mr-[5%] text-[20px] mt-[4%] md:mb-[3%] darker-grotesque">
           <Link href="/pwa/Homepage" className={getLinkClass('/pwa/Homepage')}>Home</Link>
-          <Link href="/pwa/uploadimage" className={getLinkClass('/pwa/uploadimage')}>Check Drug Status</Link>
+          <Link href="/pwa/landing" className={getLinkClass('/pwa/landing')}>Check Drug Status</Link>
           <Link href="/pwa/map" className={getLinkClass('/pwa/map')}>Pharmacy Finder</Link>
         </div>
       </div>
 
       {isOpen && (
         <div className="md:hidden bg-white shadow-md text-[20px] fixed inset-0 flex flex-col justify-center items-center space-y-5 z-50 darker-grotesque">
-        <button onClick={() => setIsOpen(false)} className="absolute top-5 right-5 text-black focus:outline-none">
-           <FaTimes size={24} />
-        </button>
-           <Link href="/pwa/Homepage" className={getLinkClass('/pwa/Homepage')}>Home</Link>
-          <Link href="/pwa/uploadimage" className={getLinkClass('/pwa/uploadimage')}>Check Drug Status</Link>
+          <button onClick={() => setIsOpen(false)} className="absolute top-5 right-5 text-black focus:outline-none">
+            <FaTimes size={24} />
+          </button>
+          <Link href="/pwa/Homepage" className={getLinkClass('/pwa/Homepage')}>Home</Link>
+          <Link href="/pwa/landing" className={getLinkClass('/pwa/landing')}>Check Drug Status</Link>
           <Link href="/pwa/map" className={getLinkClass('/pwa/map')}>Pharmacy Finder</Link>
         </div>
       )}
       
       <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white shadow-t-md flex justify-around items-center py-3 z-50">
         <Link href="/pwa/Homepage" className={`flex flex-col items-center ${getLinkClass('/pwa/Homepage')}`}>
-          <FaHome size={24} />
-          <span className="text-xs">Home</span>
+          <FaHome size={30} />
+          <span className="text-10px darker grotesque ">Home</span>
         </Link>
-        <Link href="/pwa/uploadimage" className={`flex flex-col items-center ${getLinkClass('/pwa/uploadimage')}`}>
-          <FaInfoCircle size={24} />
-          <span className="text-xs">Check Drug Status</span>
+        <Link href="/pwa/landing" className={`flex flex-col items-center ${getLinkClass('/pwa/landing')}`}>
+          <FaInfoCircle size={30} />
+          <span className="text-10px darker grotesque ">Check Drug Status</span>
         </Link>
         <Link href="/pwa/map" className={`flex flex-col items-center ${getLinkClass('/pwa/map')}`}>
-          <FaMapMarkerAlt size={24} />
-          <span className="text-xs">Pharmacy Finder</span>
+          <FaMapMarkerAlt size={30} />
+          <span className="text-10px darker grotesque ">Pharmacy Finder</span>
         </Link>
       </div>
     </nav>
