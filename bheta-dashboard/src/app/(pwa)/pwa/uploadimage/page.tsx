@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Navbar from '../Navbar';
 import { X } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 const ImageUpload: React.FC = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
@@ -13,6 +14,7 @@ const ImageUpload: React.FC = () => {
   const [responseMessage, setResponseMessage] = useState<string>('');
   const [showResponsePage, setShowResponsePage] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
   const handleUploadClick = () => {
     if (fileInputRef.current) {
@@ -62,9 +64,6 @@ const ImageUpload: React.FC = () => {
     }
   };
 
-  const handleShare = () => {
-    console.log('Sharing response');
-  };
 
   const handleReport = () => {
     console.log('Report response');
@@ -73,27 +72,23 @@ const ImageUpload: React.FC = () => {
   const ResponsePage: React.FC = () => (
     <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
       <div className="relative bg-white p-10 w-3/4 md:w-1/2 lg:w-1/3 rounded-lg shadow-lg space-y-6">
-        <button 
-          onClick={() => setShowResponsePage(false)}
-          className="absolute top-4 right-4 p-1 hover:bg-gray-100 rounded-full transition-colors"
-        >
-          <X className="w-6 h-6 text-gray-500" />
-        </button>
+      <button 
+  onClick={() => {
+    setShowResponsePage(false);
+    router.push('/pwa/landing/');
+  }}
+  className="absolute top-4 right-4 p-1 hover:bg-gray-100 rounded-full transition-colors"
+>
+  <X className="w-6 h-6 text-gray-500" />
+</button>
 
         <h2 className="text-2xl font-bold text-center">Drug Status</h2>
         <p className="text-center">{responseMessage}</p>
         <div className="flex justify-around mt-6">
-          <Link href="/pwa/share">
+        <Link href="/pwa/pharmacy">
             <button
-              className="px-4 py-2 bg-blue-500 text-white rounded-lg"
-              onClick={handleShare}
-            >
-              Share
-            </button>
-          </Link>
-          <Link href="/pwa/pharmacy">
-            <button
-              className="px-4 py-2 bg-red-500 text-white rounded-lg"
+              className="px-6 py-2 text-white rounded-lg mt-[20%]"
+              style={{ backgroundColor: '#1B264F' }}
               onClick={handleReport}
             >
               Report
@@ -116,7 +111,7 @@ const ImageUpload: React.FC = () => {
 
                   
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start mt-[3%] lg:mt-[5%] lg:ml-[8%]">
-            <div className="flex justify-center mt-[3%] lg:mt-[5%]   order-1 md:order-1 ">
+            <div className="flex justify-center mt-[3%] lg:mt-[5%]  order-1 md:order-1 ">
               <Image
                 src="/images/pop.jpg"
                 alt="check"
@@ -227,4 +222,9 @@ const ImageUpload: React.FC = () => {
 };
 
 export default ImageUpload;
+
+
+
+
+
 
