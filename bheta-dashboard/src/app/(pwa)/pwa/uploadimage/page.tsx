@@ -63,12 +63,6 @@ const ImageUpload: React.FC = () => {
       setShowResponsePage(true);
     }
   };
-
-
-  const handleReport = () => {
-    console.log('Report response');
-  };
-
   const ResponsePage: React.FC = () => (
     <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
       <div className="relative bg-white p-10 w-3/4 md:w-1/2 lg:w-1/3 rounded-lg shadow-lg space-y-6">
@@ -84,17 +78,7 @@ const ImageUpload: React.FC = () => {
 
         <h2 className="text-2xl font-bold text-center">Drug Status</h2>
         <p className="text-center">{responseMessage}</p>
-        <div className="flex justify-around mt-6">
-        <Link href="/pwa/pharmacy">
-            <button
-              className="px-6 py-2 text-white rounded-lg mt-[20%]"
-              style={{ backgroundColor: '#1B264F' }}
-              onClick={handleReport}
-            >
-              Report
-            </button>
-          </Link>
-        </div>
+       
       </div>
     </div>
   );
