@@ -36,7 +36,7 @@ export default function Navbar() {
     <nav className="bg-white z-50 md:top-0">
       <div className="flex items-center justify-between h-20">
         <div className="flex-shrink-0 ml-[3%] mt-[2%] md:mt-[5%] md:mb-[3%]">
-          <Image src="/images/logo.png" alt="logo" width={120} height={60}/>
+          <Image src="/images/logo.png" alt="logo" width={90} height={40}/>
         </div>
         
         <div className="hidden md:flex space-x-24 font-bold text-black mr-[5%] text-[20px] mt-[4%] md:mb-[3%] darker-grotesque">
@@ -60,15 +60,15 @@ export default function Navbar() {
       <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white shadow-t-md flex justify-around items-center py-3 z-50">
         <Link href="/pwa/Homepage" className={`flex flex-col items-center ${getLinkClass('/pwa/Homepage')}`}>
           <FaHome size={30} />
-          <span className="text-10px darker grotesque ">Home</span>
+          <span className="text-8px darker grotesque ">Home</span>
         </Link>
         <Link href="/pwa/landing" className={`flex flex-col items-center ${getLinkClass('/pwa/landing')}`}>
           <FaInfoCircle size={30} />
-          <span className="text-10px darker grotesque ">Check Drug Status</span>
+          <span className="text-8px darker grotesque ">Check Drug Status</span>
         </Link>
         <Link href="/pwa/map" className={`flex flex-col items-center ${getLinkClass('/pwa/map')}`}>
           <FaMapMarkerAlt size={30} />
-          <span className="text-10px darker grotesque ">Pharmacy Finder</span>
+          <span className="text-8px darker grotesque ">Pharmacy Finder</span>
         </Link>
       </div>
     </nav>

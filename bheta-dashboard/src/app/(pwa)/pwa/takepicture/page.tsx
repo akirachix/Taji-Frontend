@@ -11,7 +11,7 @@ const Landing = () => {
       <div className="container pt-24 sm:pt-16 pb-24 px-4 sm:px-6 lg:px-8">
         <main>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start mt-[3%] lg:mt-[5%] lg:ml-[8%]">
-            <div className="flex justify-center  mt-[3%] lg:mt-[5%] order-1 md:order-1 ">
+            <div className="flex justify-center lg:mt-[5%] order-1 md:order-1 ">
               <Image
                 src="/images/pop.jpg"
                 alt="check"
@@ -24,7 +24,7 @@ const Landing = () => {
             
             <div className="flex flex-col space-y-8 order-2 md:order-2">
               <div className="space-y-6">
-              <h3 className="font-semibold text-[20px] sm:text-[24px] md:text-[30px] mb-2 sm:mb-4 text-center  sm:whitespace-nowrap mt-[5%] darker grotesque mr-[10%]">
+              <h3 className="font-semibold text-[22px] sm:text-[24px] md:text-[30px] mb-2 sm:mb-4 text-center  sm:whitespace-nowrap mt-[5%] darker grotesque mr-[10%]">
               Located a Batch Number on Your Medication</h3>
                 <ol className="space-y-4">
                   <li className="flex gap-2">
@@ -33,11 +33,11 @@ const Landing = () => {
                   </li>
                   <li className="flex gap-2">
                     <span className="text-xl md:text-2xl darker grotesque ">2.</span>
-                    <span className="text-xl md:text-2xl darker grotesque">May be preceded by Batch No., Lot, or LOT NO</span>
+                    <span className="text-[20px] md:text-2xl darker grotesque">May be preceded by Batch No or LOT NO</span>
                   </li>
                   <li className="flex gap-2">
                     <span className="text-xl md:text-2xl darker grotesque ">3.</span>
-                    <span className="text-xl md:text-2xl darker grotesque ">Often Near the expiry date.</span>
+                    <span className="text-[20px] md:text-2xl darker grotesque ">Often Near the expiry date.</span>
                   </li>
                   <li className="flex gap-2">
                     <span className="text-xl md:text-2xl darker grotesque ">4.</span>

@@ -104,11 +104,6 @@ const Camerapermission = () => {
       setShowResponsePage(true);
     }
   };
-
-  const handleReport = () => {
-    console.log('Report response');
-  };
-
   const ResponsePage: React.FC = () => (
     <div className="fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50">
       <div className="relative bg-white p-10 w-3/4 md:w-1/2 lg:w-1/3 rounded-lg shadow-lg space-y-6">
@@ -123,17 +118,7 @@ const Camerapermission = () => {
         </button>
         <h2 className="text-2xl font-bold text-center">Drug Status</h2>
         <p className="text-center">{responseMessage}</p>
-        <div className="flex justify-around mt-6">
-          <Link href="/pwa/pharmacy">
-            <button
-              className="px-6 py-2 text-white rounded-lg mt-[20%]"
-              style={{ backgroundColor: '#1B264F' }}
-              onClick={handleReport}
-            >
-              Report
-            </button>
-          </Link>
-        </div>
+       
       </div>
     </div>
   );
@@ -142,7 +127,7 @@ const Camerapermission = () => {
     <>
     <Navbar/>
     <div id='permission' className="min-h-screen bg-gray-100 flex flex-col">
-      <main className="flex-grow flex flex-col items-center justify-center px-4 py-6">
+      <main className="flex-grow flex flex-col items-center justify-center px-4">
         <div className="w-full max-w-3xl relative">
           {isProcessing ? (
             <div className="text-center">
@@ -176,7 +161,7 @@ const Camerapermission = () => {
             </div>
           ) : (
             <>
-              <video ref={videoRef} autoPlay playsInline className="w-full object-cover mb-12 rounded-lg" />
+              <video ref={videoRef} autoPlay playsInline className="w-full object-cover rounded-lg" />
               <div className="absolute top-4 right-4">
                 <button 
                   onClick={toggleCamera}
@@ -195,7 +180,7 @@ const Camerapermission = () => {
               </div>
             </>
           )}
-          <canvas ref={canvasRef} style={{ display: 'none' }} width="1000" height="980" />
+          <canvas ref={canvasRef} style={{ display: 'none' }} width="800" height="600" />
         </div>
       </main>
       {showResponsePage && <ResponsePage />}
